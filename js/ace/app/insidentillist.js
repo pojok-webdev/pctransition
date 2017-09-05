@@ -1,0 +1,40 @@
+var thisdomain = 'http://localhost/ace_accounting/index.php/';
+$(document).ready(function(){
+	$(".removeitem").click(function(){
+		$("#confirmsource").text($(this).parent().parent().prev().prev().html());
+		$("#confirmdate").text($(this).parent().parent().prev().prev().prev().html());
+		$("#rowid").text($(this).parent().parent().parent().index());
+		$("#dConfirmation").modal();
+	});
+	$("#tinsidentil").dataTable();
+	$("#btn_addinsidentil").click(function(){
+		$("#bModal").modal();
+	});
+	
+	$("#btnaddinsidentil").click(function(){
+		$.post(thisdomain+'adm/incomeadd',{date:changeformat($("#tanggal").val()),description:$("#uraian").val(),source:$("#student").val(),account:$("#account").val(),contraaccount:$("#contraaccount").val(),amount:$("#amount").val()}).fail(function(){
+			alert("Tidak dapat menyimpan insidentil, hubungi Developer");}).done(function(data){
+			/*alert(data);*/
+				$("#tinsidentil").dataTable().fnAddData([
+				                                         '<label class="center"><input type="checkbox"><span class="lbl"></span></label>',
+				                                         '<a>'+$("#uraian").val()+'</a>',
+				                                         $("#amount").val(),
+				                                         $("#tanggal").val(),$("#student").val(),'1106',
+				                                         '<div class="hidden-phone visible-desktop action-buttons"><a class="green"><i class="icon-pencil bigger-130"></i></a><a class="red"><i class="icon-trash bigger-130"></i></a></div>'
+				                                         ]);
+			});
+		$("#bModal").modal("hide");
+	});
+	
+	$("#btnremoveinsidentil").click(function(){
+		//$.post(thisdomain+'adm/incomeremove',{id:$(this).attr("rowid");});
+		$("#tinsidentil").dataTable().fnDeleteRow($("#rowid").text());
+	});
+	$(".date-picker").datepicker();
+	
+});
+
+changeformat = function(mydate){
+	out = mydate.split("-");
+	return out[2]+'-'+out[1]+'-'+out[0];
+}

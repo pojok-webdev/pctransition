@@ -1,0 +1,82 @@
+.report tbody tr:nth-child(odd){
+	background-color:#eee;
+}
+.report tbody tr:nth-child(even){
+	background-color:#fff;
+}
+.report thead th{
+	background-color:black;
+	color:white;
+}
+.report{
+	width:100%;
+	background-color:#f1f1c1;
+	border-spacing:5px;
+	font-size: 8px;
+}
+.report, th, td{
+	border-left: 1px solid white;
+	border-collapse:collapse;
+}
+.report tbody td:nth-child(1),.report tbody td:nth-child(2){
+	text-align:center;
+}
+th,td{
+	padding: 15px 5px 15px 5px;
+}
+/*menu*/
+#btnCetak{
+	position:fixed;
+	bottom:2em;
+	right:10px;
+	text-decoration:none;
+	color:#000000;
+	background-color:rgba(135,135,135,0.50);
+	font-size:12px;
+	padding:1em;
+}
+.downloadPDF{
+	position:fixed;
+	bottom:2em;
+	right:10px;
+	text-decoration:none;
+	color:#000000;
+	background-color:rgba(135,135,135,0.50);
+	font-size:12px;
+	padding:1em;
+	background-image:url("pdfsmall.jpeg") ;
+	background-repeat:no-repeat;
+	/*background-position: left;*/
+	background-position:10%;
+	cursor:pointer;
+}
+.downloadPDF:hover{
+	background-color:rgba(135,135,135,0.80);
+	cursor:pointer;
+	color:white;
+}
+
+#btnCetak:hover{
+	background-color:rgba(135,135,135,0.80);
+	cursor:pointer;
+	color:white;
+}
+#btnHome{
+	position:fixed;
+	bottom:8em;
+	right:10px;
+	text-decoration:none;
+	color:#000000;
+	background-color:rgba(135,135,135,0.50);
+	font-size:12px;
+	padding:1em;
+	background-image:url("home2small.jpeg");
+	background-repeat:no-repeat;
+	background-position:10%;
+	cursor:pointer;
+}
+#btnHome:hover{
+	background-color:rgba(135,135,135,0.80);
+	cursor:pointer;
+	color:white;
+}

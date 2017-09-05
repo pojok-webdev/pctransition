@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	</head>
+	<body>
+		<canvas id="mycanvas" width=500 height=200></canvas>
+		<img id="saveimg" />
+		<button id="btnCircle">Circle</button>
+		<button id="btnArrow">Arrow</button>
+		<button id="btnClear">Clear</button>
+		<button id="btnSave">Save</button>
+		<script>
+			(function($){
+				getMousePos = function(canvas,evt){
+					var rect = canvas.getBoundingClientRect();
+					return {
+						x:evt.clientX-rect.left,
+						y:evt.clientY-rect.top
+					};
+				};
+				var canvas = document.getElementById("mycanvas")
+				,context = canvas.getContext('2d'),mycursor="arrow";
+				/*canvas.addEventListener('mousemove',function(evt){
+					var mousepos = getMousePos(canvas,evt),
+					message = "Posisi "+mousepos.x+" - "+mousepos.y;
+					context.clearRect(0, 0, canvas.width, canvas.height);
+					context.font = '18pt Calibri';
+					context.fillStyle = 'black';
+					context.fillText(message, 10, 25);
+				});*/
+				canvas.addEventListener('mouseup',function(evt){
+					var mousepos = getMousePos(canvas,evt);
+					if(mycursor==="circle"){
+						context.beginPath();
+						context.arc(mousepos.x,mousepos.y,70,0,2*Math.PI,false);
+						context.fillStyle='green';
+						context.fill();
+						context.lineWidth=10;
+						context.strokeStyle='#003300';
+						context.stroke();
+					}
+					if(mycursor==="arrow"){
+						context.beginPath();
+						context.moveTo(mousepos.x,mousepos.y);
+						context.lineTo(mousepos.x-50,mousepos.y+20);
+						context.lineTo(mousepos.x-50,mousepos.y-20);
+						context.fill();
+					}
+				});
+				$("#btnClear").click(function(){
+					context.clearRect(0,0,canvas.width,canvas.height);
+				});
+				$("#btnSave").click(function(){
+					var dataUrl = canvas.toDataURL();
+					document.getElementById("saveimg").src = dataUrl;
+					window.location.href = dataUrl;
+				});
+				$("#btnArrow").click(function(){
+					mycursor = "arrow";
+				});
+				$("#btnCircle").click(function(){
+					mycursor = "circle";
+				});
+			}(jQuery))
+		</script>
+	</body>
+</html>

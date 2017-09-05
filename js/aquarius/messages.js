@@ -1,0 +1,12 @@
+$(document).ready(function(){
+	$('.alert').click(function(){
+		$.post(thisdomain+'adm/deactivealert',{id:$(this).attr('alert_id')}).done(function(data){}).fail(function(){});
+	});
+	$('.message').click(function(){
+		$.post(thisdomain+'adm/deactivemessage',{id:$(this).attr('message_id')}).done(function(data){}).fail(function(){alert('gagal');});
+		$(this).fadeOut(1000);
+	});
+	setInterval(function(){
+		$(".date").timeago();
+		},2000);
+});

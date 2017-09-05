@@ -1,0 +1,32 @@
+.rptanchor:hover{
+    color: red;
+}
+.monthselector:hover{
+    cursor:pointer;
+}
+.strsemua:hover{
+    cursor:pointer;
+}
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+.pointer{
+    cursor:pointer;
+}
+.pointer:hover{
+    color:red;
+    cursor:pointer;
+}
+label.padithick{
+    margin: 20px 0px;
+    font-size: 28px;
+}
+.rightaligned{
+    text-align: right;
+}

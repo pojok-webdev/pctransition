@@ -1,0 +1,86 @@
+@media print{
+            .subtitle{
+                background-color:black;
+                color:white;
+            }
+            .bordered{
+                border-bottom: black solid 1px;
+            }
+            .thick{
+                border-top: black solid 10px;
+                border-bottom: black solid 10px;
+            }
+            .rightside{
+                border-left: black solid 1px;
+            }
+            .leftside{
+                border-left: black solid 1px;
+            }
+            .sidepad{
+                padding-left:20px;
+                padding-right:20px;
+            }
+            .sidemargin{
+                margin-left:20px;
+                margin-right:20px;                
+            }
+            .topborder{
+                border-top: black solid 1px;
+            }
+            .bottomborder{
+                border-bottom: black solid 1px;
+            }
+            .box{
+                border:black solid 1px;
+                width:50px;
+            }
+            .bottomspaced{
+                margin-bottom: 50px;
+            }
+            .thisfooter{
+                page-break-after:always;
+            }
+}
+@media screen{
+            .subtitle{
+                background-color:black;
+                color:white;
+            }
+            .bordered{
+                border-bottom: black solid 1px;
+            }
+            .thick{
+                border-top: black solid 10px;
+                border-bottom: black solid 10px;
+            }
+            .rightside{
+                border-left: black solid 1px;
+            }
+            .leftside{
+                border-left: black solid 1px;
+            }
+            .sidepad{
+                padding-left:20px;
+                padding-right:20px;
+            }
+            .sidemargin{
+                margin-left:20px;
+                margin-right:20px;                
+            }
+            .topborder{
+                border-top: black solid 1px;
+            }
+            .bottomborder{
+                border-bottom: black solid 1px;
+            }
+            .box{
+                border:black solid 1px;
+                width:50px;
+            }
+            .bottomspaced{
+                margin-bottom: 50px;
+            }
+            .thisfooter{
+                page-break-after:always;
+            }    
+}

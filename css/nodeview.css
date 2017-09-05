@@ -1,0 +1,15 @@
+body { 
+  font: 14px helvetica neue, helvetica, arial, sans-serif;
+}
+
+#cy {
+  height: 500px;
+  width:  100%;
+  position: relative;
+  background-color: cyan;
+  left: 0;
+  top: 100;
+}
+.selected{
+    background-color: brown;
+}

@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<?php
+		header("Content-Type: application/vnd.ms-excel; charset=utf-8");
+		header("Content-Disposition: attachment;filename=xyz.xls");
+		header("Cache-Control: private",false);
+		?>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th>Hal</th>
+					<th>Hal</th>
+					<th>Hal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+				</tr>
+				<tr>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+				</tr>
+				<tr>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+				</tr>
+				<tr>
+					<td>test</td>
+					<td>test</td>
+					<td>test</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

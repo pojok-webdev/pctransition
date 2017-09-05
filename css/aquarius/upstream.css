@@ -1,0 +1,5 @@
+#clientLookup tbody tr:hover{
+	background: green;
+	color: gold;
+	cursor:pointer;
+}

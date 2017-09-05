@@ -1,0 +1,52 @@
+#rpt{
+	font-size: 16px;
+	font-family: arial;
+	width: 100%;
+}
+#rpt tbody tr td{
+	padding:5px 5px 5px 5px;
+	margin:15px 15px 15px 15px;
+}
+#rpt tbody tr:nth-child(odd){
+	background:ghostwhite;
+}
+#rpt tbody tr:nth-child(even){
+	background:cornsilk;
+}
+#container{
+	margin-left:auto;
+	margin-right:auto;
+}
+#rpt thead tr th{
+	background: black;
+	color: white;
+	padding: 6px;
+	margin: 0px;
+	border-color: black;
+}
+#rpt tbody tr td{
+	text-align: center;
+	width:10px;
+}
+#rpt tbody tr:hover{
+	background: darkgray;
+}
+#rpt tbody tr td:hover{
+	background: gold;
+	cursor:pointer;
+	color:red;
+	font-weight: bold;
+}
+#rpt tbody td:hover{
+	background: blue;
+}
+.actname{
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: left;
+	background: brown;
+	color: gold;
+}
+.zeroval{
+	color: gray;
+}

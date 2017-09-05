@@ -1,0 +1,147 @@
+.bordered{
+	border:1px solid black;
+}
+.trsolution{
+	overload:scroll;
+}
+.textred{
+	color:red;
+}
+.textpink{
+	color:#33FF00;
+}
+.ticketClosed{
+	color:black;
+}
+.mytip :hover{
+	background-color:pink;
+}
+.ticketMassal{
+background-color:#ffbf80;
+}
+#tbl_ticket tbody tr.ticketMassal td{
+	background-color:#ffbf80;
+}
+#tbl_ticket tbody tr.ticketMassal.ticketOpen td{
+	background-color:#ffbf80;
+}
+#ttickets tbody tr.ticketOpen td{
+	background-color:#33FF00;
+}
+#tbl_ticket tbody tr.ticketOpen td{
+	background-color:#33FF00;
+}
+.textblack{
+	color:black;
+}
+.redsup{
+	color:red;
+}
+.paditablehead{
+	background: antiquewhite;
+}
+.padiDisabled{
+	color:gray;
+	padding-left: 5px;
+}
+.checkboxlist{
+	padding: 15;
+}
+.checkboxlist:hover{
+	background: antiquewhite;
+	cursor:pointer;
+}
+.caption{
+	font-size:10px;
+	text-align:center;
+}
+.imageholder{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.veryshorttext{
+	width: 5px;
+}
+.shorttext{
+	width: 20px;
+}
+.longtext{
+	width: 120px;
+}
+.widemodal{
+	width: 800px;
+}
+#myModal {
+	width: 900px !important;
+	margin-left: -450px;
+	/*margin: 0 0 0 -350px !important;*/
+}
+#dEditRequest {
+	width: 900px !important;
+	margin-left: -450px;
+	/*margin: 0 0 0 -350px !important;*/
+}
+#dEditTicket{
+	z-index: 2000;
+}
+
+#dFollowUpHistory{
+	width:1000px;
+	//height:450px;
+	margin-left: -450px;
+}
+#dFollowUpHistory .modal-dialog  {
+}
+#dFollowUpHistory .modal-header{
+}
+#dFollowUpHistory .modal-body{
+}
+@media screen and (min-width: 768px) {
+#dAddTicket{
+	width:900px;
+	margin-left: -450px;
+}
+#dAddTicket .modal-dialog  {
+}
+#dAddTicket .modal-header{
+}
+#dAddTicket .modal-body{
+}
+
+
+#dFollowUp{
+	width:1000px;
+	margin-left: -450px;
+}
+#dFollowUp .modal-dialog  {
+}
+#dFollowUp .modal-header{
+}
+#dFollowUp .modal-body{
+}
+}
+#editAllPICDialog{
+width:1000px;
+margin-left: -450px;
+}
+#addClientDialog{
+width:1000px;
+margin-left: -450px;
+}
+#tblHistoryx tbody{
+height:100px;
+overflow:scroll;
+}
+.pointer{
+	cursor:pointer;
+}
+.high-modal-bodyx{
+	height: 200px;
+}
+.modal-lg{
+	width:1000px;
+}
+div.hidden{
+	display:none;
+}

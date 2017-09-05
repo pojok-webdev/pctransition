@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* Customized CSS Document for template field report  */
+
+.greytext {color:#999999}
+.orgtext {color:#FF9900}
+.redtext {color:#FF0000}
+.padbot5 {padding-bottom:5px}
+.padbot10 {padding-bottom:10px}
+.padbot15 {padding-bottom:15px}
+.padbot20 {padding-bottom:20px}
+.padbot30 {padding-bottom:30px}
+.padbot40 {padding-bottom:40px}
+.padbot50 {padding-bottom:50px}
+.padbot75 {padding-bottom:75px}
+.padbot100 {padding-bottom:100px}
+
+.requirement th, .requirement td {text-align:center}
+

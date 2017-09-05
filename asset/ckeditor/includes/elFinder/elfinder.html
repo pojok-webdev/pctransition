@@ -1,0 +1,42 @@
+<link rel="stylesheet" type="text/css" media="screen" href="css/elfinder.min.css">
+<script type="text/javascript" src="js/elfinder.min.js"></script>
+
+<!-- Mac OS X Finder style for jQuery UI smoothness theme (OPTIONAL) -->
+<link rel="stylesheet" type="text/css" media="screen" href="css/theme.css">
+
+<script type="text/javascript" charset="utf-8">
+	$().ready(function() {
+		var elf = $('#elfinder').elfinder({
+			// lang: 'ru',             // language (OPTIONAL)
+			url : 'php/connector.php'  // connector URL (REQUIRED)
+		}).elfinder('instance');			
+	});
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8">
+    // Helper function to get parameters from the query string.
+    function getUrlParam(paramName) {
+        var reParam = new RegExp('(?:[\?&]|&amp;)' + paramName + '=([^&]+)', 'i') ;
+        var match = window.location.search.match(reParam) ;
+        
+        return (match && match.length > 1) ? match[1] : '' ;
+    }
+
+    $().ready(function() {
+        var funcNum = getUrlParam('CKEditorFuncNum');
+
+        var elf = $('#elfinder').elfinder({
+            url : 'php/connector.php',
+            getFileCallback : function(file) {
+                window.opener.CKEDITOR.tools.callFunction(funcNum, file);
+                window.close();
+            },
+            resizable: false
+        }).elfinder('instance');
+    });
+</script>
+
+<!-- Element where elFinder will be created (REQUIRED) -->
+<div id="elfinder"></div>

@@ -1,0 +1,45 @@
+li{list-style:none;}
+li.selected {background:#E0E0E0 }
+ul#padiDropDown{
+	position: relative;
+	/*left:-35px;*/
+	left:-15px;
+	/*top:-10px;*/
+	top: 10px;
+	/*z-index: -1;*/
+	background:#CCFFCC;
+}
+.padiDropDownCloser{
+	text-align:center;
+	width: 20px;
+	right: 10px;
+	position:absolute;
+	cursor:pointer;
+}
+.padiDropDownCloser:hover{
+	background: red;
+	width: 20px;
+	text-align: center;
+	color: white;
+}
+ul#padiDropDown .padiLiSuggestion{
+	padding-left:10px;
+	border-bottom: 2px solid #CCFF99;
+}
+ul#result{
+	position: absolute;
+	left:500px;
+	top:20px;
+}
+ul#result li{
+	border: 1px solid blue;
+	background: skyblue;
+	color:green;
+	padding: 5px 50px 5px 5px;
+}
+ul#result li:hover{
+	border: 1px solid brown;
+	padding: 5px 50px 5px 5px;
+	background: yellow;
+	color:red;
+}
