@@ -4,7 +4,7 @@
 <body>
     <div class="loginBox">
         <div class="loginHead">
-            <img src="<?php echo base_url();?>img/aquarius/logo.png" alt="PadiApp" title="PadiApp"/>
+            <img src="/img/aquarius/logo.png" alt="PadiApp" title="PadiApp"/>
         </div>
         <input type='hidden' name='sender' value='login' />
         <?php
@@ -23,6 +23,6 @@
                 <button type="submit" class="btn btn-block btnLogout">Log out</button>
             </div>
     </div>
-    <script type="text/javascript" src="<?php echo base_url();?>js/aquarius/adm/chooseRole.js"></script>
+    <script type="text/javascript" src="/js/aquarius/adm/chooseRole.js"></script>
 </body>
 </html>

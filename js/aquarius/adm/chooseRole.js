@@ -2,7 +2,7 @@
 	$(".btnChooseRole").click(function(){
 		var role = $(this).val();
 		$.ajax({
-			url:thisdomain+"adm/setRole",
+			url:"/adm/setRole",
 			data:{role:role},
 			type:"post",
 		}).done(function(){
@@ -13,25 +13,25 @@
 			}else{
 				switch(role){
 					case "TS":
-					window.location.href = thisdomain+"tickets";
+					window.location.href = "/tickets";
 					break;
 					case "Sales":
-					window.location.href = thisdomain+"surveys";
+					window.location.href = "/surveys";
 					break;
 					case "Administrator":
-					window.location.href = thisdomain+"users";
+					window.location.href = "/users";
 					break;
 					case "Umum dan Warehouse":
-					window.location.href = thisdomain+"adm/devicetypes";
+					window.location.href = "/adm/devicetypes";
 					break;
 					case "Accounting":
-					window.location.href = thisdomain+"disconnections";
+					window.location.href = "/disconnections";
 					break;
 					case "EOS":
-					window.location.href = thisdomain+"pmaintenances";
+					window.location.href = "/pmaintenances";
 					break;					
 					case "CRO":
-					window.location.href = thisdomain+"tickets";
+					window.location.href = "/tickets";
 					break;					
 				}
 			}
@@ -39,6 +39,6 @@
 		console.log(role);
 	});
 	$(".btnLogout").click(function(){
-		window.location.href = thisdomain+"adm/logout";
+		window.location.href = "/adm/logout";
 	});
 }(jQuery));

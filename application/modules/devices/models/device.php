@@ -1,9 +1,11 @@
 <?php
-class Device extends DataMapper{
+class Device extends CI_Model{
 	var $has_one = array('devicetype');
 	var $has_many = array('survey_device','surveypackagedetail');
+	var $ci;
 	function __construct(){
 		parent::__construct();
+		$this->ci = & get_instance();
 	}
 	function add($params){
 		$obj = new Device();

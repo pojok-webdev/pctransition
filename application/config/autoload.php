@@ -15,7 +15,17 @@
 		'form_validation',
 		'pdftable','matrix','appsettings'
 	);
-	$autoload['helper'] = array('url','form','date','file','directory','text','cookie','padi','telegram');
+	$autoload['helper'] = array(
+		'url',
+		'form',
+		'date',
+		'file',
+		'directory',
+		'text',
+		'cookie',
+		'padi',
+		'telegram','inflector'
+	);
 	$autoload['config'] = array();
 	$autoload['language'] = array();
 	$autoload['model'] = array(array(
@@ -41,7 +51,7 @@
 		'Cities/city','Clients/client','Client_sites/client_site',
 		'Client_priorities/client_priority',
 		'Datacenters/datacenter',
-		'Devices/device',
+/*		'Devices/device',
 		'Devicetypes/devicetype',
 		'Disconnections/disconnection',
 		'Disconnectionlogs/disconnectionlog',
@@ -135,15 +145,15 @@
 		'Ticket_followups/ticket_followup',
 		'Tickets/ticket',
 		'Ticketcauses/ticketcause',
-		'Usage_periods/usage_period',
+		'Usage_periods/usage_period',*/
 		'Users/user',
-		'Vases/vas',
+/*		'Vases/vas',
 		'Web_settings/web_setting',
 		'Withdrawals/withdrawal',
 		'maintenancereport_images/maintenancereport_image',
 		'maintenancereport_kompetitors/maintenancereport_kompetitor',
 		'maintenancereport_vas/maintenancereport_vas',
 		'maintenancereports/maintenancereport',
-		'maintenancereport_applications/maintenancereport_application',
+		'maintenancereport_applications/maintenancereport_application',*/
 	)
 );

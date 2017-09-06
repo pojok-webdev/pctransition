@@ -239,9 +239,10 @@ function __construct(){
 	$this->load->library('ion_auth');
 	$this->load->helper('language');
 	$this->load->helper('padi');
+	$user = new User();
 	if ($this->ion_auth->logged_in()){
 		$this->ionuser = $this->ion_auth->user()->row();
-		$this->data['user'] = User::get_user_by_id($this->ionuser->id);
+		$this->data['user'] = $user->get_user_by_id($this->ionuser->id);
 	}
 }
 function change_password(){
@@ -390,10 +391,10 @@ function get_alerts(){
 function chooseRole(){
 	$this->check_login();
 	$user = new User();
-	$user->where('id', $this->session->userdata('user_id'))->get();
-	if ($user->group->result_count() > 1){
+	$groups = $user->getgroupsbyid($this->session->userdata('user_id'));
+	if (count($groups) > 1){
 		$data = array(
-		"roles" => $user->group
+		"roles" => $groups
 		);
 		$this->load->view("adm/chooseRole", $data);
 	}else{
@@ -624,10 +625,11 @@ function getticket(){
 }
 function handler(){
 	$params = $this->input->post();
+	$applog = new App_log();
 	switch ($params['sender']){
 	case 'login':
 		if ($this->ion_auth->login($params['username'], $params['password'])){
-			App_log::create_log('login');
+			$applog->create_log('login');
 			session_start();
 			if(isset($_SESSION["sess"])&&isset($_SESSION["role"])){
 				echo $_SESSION["sess"] . "<br />";
