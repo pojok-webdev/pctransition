@@ -248,7 +248,7 @@ class Tickets extends CI_Controller{
 	}
 	function index(){
 		padi_checklogin();
-		$data = Appsettings::getdata();
+		// $data = Appsettings::getdata();
 		if($this->ion_auth->logged_in()){
 			$this->ionuser = $this->ion_auth->user()->row();
 		}

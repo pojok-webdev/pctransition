@@ -398,7 +398,7 @@ function chooseRole(){
 		);
 		$this->load->view("adm/chooseRole", $data);
 	}else{
-		switch ($user->group->name){
+		switch ($groups[0]->name){
 		case "TS":
 			$session_data = array(
 			'role' => "TS"

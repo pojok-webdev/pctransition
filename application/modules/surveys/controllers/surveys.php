@@ -4,8 +4,7 @@ class Surveys extends CI_Controller {
 	var $data;
 	function __construct() {
 		parent::__construct();
-		$this->data = array(
-		);
+		$this->data = array();
 		if ($this->ion_auth->logged_in()) {
 			$this->ionuser = $this->ion_auth->user()->row();
 			$this->data['user'] = User::get_user_by_id($this->ionuser->id);
@@ -134,7 +133,7 @@ class Surveys extends CI_Controller {
 					break;
 			}
 		} else {
-			redirect(base_url() . "adm/chooseRole");
+			redirect("/adm/chooseRole");
 		}
 	}
 	function url_contain($obj) {

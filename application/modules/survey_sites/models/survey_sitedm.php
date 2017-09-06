@@ -1,23 +1,18 @@
 <?php
-class Survey_site extends CI_Model{
+class Survey_site extends DataMapper{
 	//var $has_one = array('survey_request','client_site');
 	var $has_one = array('survey_request','client_site','branch');
 	var $has_many = array('survey_image','survey_material','survey_device','survey_bts_distance','survey_site_distance','survey_resume','survey_ba');
-	var $ci;
 	function __construct(){
 		parent::__construct();
-		$this->ci = & get_instance();
-	}	
+	}
+	
 	function get_survey_sites($survey_id){
-		$sql = "select * from survey_sites where survey_request_id=".$survey_id." ";
-		$sql.= "where active='1' ";
-		$sql.= "order by create_date asc ";
-		$que = $this->ci->db->query($sql);
-		return $que->result();
+		$objs = new Survey_site();
+		$objs->where('active','1')->where('survey_request_id',$survey_id)->order_by('create_date','asc')->get();
+		return $objs;
 	}
 	function get_images($site_id){
-		$sql = "select * from survey_images ";
-		$sql.= "where survey_site_id=".$site_id." ";
 		$objs = new Survey_image();
 		$objs->where('survey_site_id',$site_id)->get();
 		$arr = array();

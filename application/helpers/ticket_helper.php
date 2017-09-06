@@ -16,6 +16,7 @@ function getstatistics(){
 	return $ticket;
 }
 function ticket_populate2(){
+	$ci = & get_instance();
 	$userbranches = implode(",",getuserbranches());
 	$sql = "select distinct a.id,a.kdticket,a.create_date,a.createuser,a.status,case a.status when '0' then 'open' when '1' then 'close' end ticketStatus,case a.status when '0' then '-' when '1' then ticketend end ticketEnd,a.clientname,a.reporterphone,a.requesttype,a.parentid,b.id cid,c.id backboneid,d.id btsid,e.id dcid,f.id ptpid,reporter,i.trid,j.hastroubleshoot,date_format(ticketstart,'%d/%m/%Y %H:%i:%s') ticketstart,case a.status when '0' then '00/00/0000 00:00:00' when '1' then date_format(ticketend,'%d/%m/%Y %H:%i:%s') end ticket_end";
 
@@ -37,9 +38,11 @@ function ticket_populate2(){
 	$sql.="left outer join (select count(id) hastroubleshoot,ticket_id from troubleshoot_requests group by ticket_id) j on j.ticket_id=a.id ";
 	$sql.="where b.id is not null or c.id is not null or d.id is not null or e.id is not null or f.id is not null or g.id is not null or h.id is not null ";
 	$sql.= "order by create_date desc limit 0,2000 ";
-	$obj = new Ticket();
-	$obj->query($sql);
-	return $obj;
+//	$obj = new Ticket();
+	$que = $ci->db->query($sql);
+	return $que->result();
+//	$obj->query($sql);
+//	return $obj;
 }
 function getservices($ticket_id){
 	$sql = "select distinct b.name from tickets a left outer join clientservices b on a.client_site_id=b.client_site_id where a.id=".$ticket_id;
