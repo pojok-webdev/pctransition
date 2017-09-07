@@ -58,112 +58,112 @@
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="EOS")||($this->session->userdata["role"]==="Sales")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('reportfilter'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('reportfilter'));?>">
 				<a href="/rpt/">
 					<span class="isw-text_document"></span><span class="text">Laporan</span>
 				</a>
 			</li>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('schedules'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('schedules'));?>">
 				<a href="/schedules/show">
 					<span class="isw-schedule"></span><span class="text">Jadwal</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if($this->session->userdata["role"]=="Sales"){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('suspect'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('suspect'));?>">
 				<a href="<?php echo base_url();?>suspects">
 					<span class="isw-grid"></span><span class="text">Leads</span>
 				</a>
 			</li>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('prospect'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('prospect'));?>">
 				<a href="<?php echo base_url();?>prospects">
 					<span class="isw-grid"></span><span class="text">Prospek</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="Sales")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('survey'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('survey'));?>">
 				<a href="<?php echo base_url();?>surveys">
 					<span class="isw-survey"></span><span class="text">Survey</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="Sales")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('install'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('install'));?>">
 				<a href="<?php echo base_url();?>install_requests/index/all">
 					<span class="isw-install"></span><span class="text">Instalasi</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="Sales")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('subscribeform'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('subscribeform'));?>">
 				<a href="<?php echo base_url();?>subscribeforms">
 					<span class="isw-fb"></span><span class="text">Form Berlangganan</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="Sales")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('trials'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('trials'));?>">
 				<a href="<?php echo base_url();?>ptrials">
 					<span class="isw-grid"></span><span class="text">Trial</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="Sales")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('altergrade'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('altergrade'));?>">
 				<a href="<?php echo base_url();?>altergrades">
 					<span class="isw-grid"></span><span class="text">Perubahan Layanan</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="Sales")||($this->session->userdata["role"]==="EOS")||($this->session->userdata["role"]==="CRO")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('maintenance'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('maintenance'));?>">
 				<a href="/pmaintenanceschedules">
 					<span class="isw-grid"></span><span class="text">Maintenance Schedule</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="Sales")||($this->session->userdata["role"]==="CRO")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('maintenancereport'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('maintenancereport'));?>">
 				<a href="<?php echo base_url();?>maintenancereports">
 					<span class="isw-grid"></span><span class="text">Maintenance Report</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="EOS")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('maintenancereport'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('maintenancereport'));?>">
 				<a href="<?php echo base_url();?>maintenancereports">
 					<span class="isw-grid"></span><span class="text">Maintenance Report</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]=="TS")||($this->session->userdata["role"]=="CRO"||($this->session->userdata["role"]=="Sales")||($this->session->userdata["role"]==="EOS"))){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('troubleshoot'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('troubleshoot'));?>">
 				<a href="<?php echo base_url();?>troubleshoots">
 					<span class="isw-wrench"></span><span class="text">Troubleshoot</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]==="Sales")||($this->session->userdata["role"]==="Accounting")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('disconnection'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('disconnection'));?>">
 				<a href="<?php echo base_url();?>disconnections/index/0">
 					<span class="isw-broken"></span><span class="text">Disconnection</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="TS")||($this->session->userdata["role"]=="CRO")||($this->session->userdata["role"]==="EOS")){?>
-			<li class="<?php echo common::getMenuStatus($menuFeed,array('ticket'));?>">
+			<li class="<?php echo getMenuStatus($menuFeed,array('ticket'));?>">
 				<a href="<?php echo base_url();?>tickets">
 					<span class="isw-ticket"></span><span class="text">Tiket</span>
 				</a>
 			</li>
 		<?php }?>
 		<?php if(padi_inrole(array('sm-farmer','farmer','ts','field'))){?>
-		<li class="openable <?php echo common::getMenuStatus($menuFeed,array('client','clientSite'));?>">
+		<li class="openable <?php echo getMenuStatus($menuFeed,array('client','clientSite'));?>">
 			<a href="<?php echo base_url();?>clients">
 				<span class="isw-clients"></span><span class="text">History Pelanggan</span>
 				<ul>
-					<li class="<?php echo common::getMenuStatus($menuFeed,array('clientSite'));?>">
+					<li class="<?php echo getMenuStatus($menuFeed,array('clientSite'));?>">
 						<a href="<?php echo base_url();?>clients">
 						<span class="icon-th"></span><span class="text">History Pelanggan</span>
 						</a>
@@ -173,21 +173,21 @@
 		</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="CRO")){?>
-		<li class=" <?php echo common::getMenuStatus($menuFeed,array('biodata'));?>">
+		<li class=" <?php echo getMenuStatus($menuFeed,array('biodata'));?>">
 			<a href="/pbiodata">
 				<span class="isw-grid"></span><span class="text">Biodata Pelanggan</span>
 			</a>
 		</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="Administrator")){?>
-		<li class="<?php echo common::getMenuStatus($menuFeed,array('report'));?>">
+		<li class="<?php echo getMenuStatus($menuFeed,array('report'));?>">
 			<a href="<?php echo base_url();?>paqs">
 				<span class="isw-grid"></span><span class="text">PAQs</span>
 			</a>
 		</li>
 		<?php }?>
 		<?php if(($this->session->userdata["role"]==="Umum dan Warehouse")||($this->session->userdata["role"]==="TS")){?>
-		<li class="openable <?php echo common::getMenuStatus($menuFeed,array('devicetype','device','materialtype','material','backbone','bts','ap','surveypackage'));?>">
+		<li class="openable <?php echo getMenuStatus($menuFeed,array('devicetype','device','materialtype','material','backbone','bts','ap','surveypackage'));?>">
 			<a href="<?php echo base_url();?>adm/troubleshoots">
 				<span class="isw-table"></span><span class="text">Master</span>
 			<ul>

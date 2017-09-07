@@ -1,9 +1,10 @@
 <?php
-class Web_setting extends DataMapper{
+class Web_setting extends CI_Model{
+	var $ci;
 	function __construct(){
 		parent::__construct();
+		$this->ci = & get_instance();
 	}
-	
 	function get_themes(){
 		$flnm = get_dir_file_info('./themes',TRUE);
 		$out = array();
@@ -20,5 +21,11 @@ class Web_setting extends DataMapper{
 			$out[$f] = $f;
 		}
 		return $out;
+	}
+	function get(){
+		$sql = "select * from web_settings ";
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
+		return $res;
 	}
 }

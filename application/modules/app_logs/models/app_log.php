@@ -18,11 +18,12 @@ class App_log extends CI_Model{
 		return $this->ci->db->insert_id();
 	}	
 	function get_lastvisit($username){
+		$ci = & get_instance();
 		$sql = "select * from app_logs ";
 		$sql.= "where user='".$username."' ";
 		$sql.= "order by createdate desc ";
 		$sql.= "limit 1,1 ";
-		$que = $this->ci->db->query($sql);
+		$que = $ci->db->query($sql);
 		$res = $que->result();
 		return $res[0]->createdate;
 	}

@@ -4,14 +4,6 @@ class Common {
 	function __construct(){
 		$this->obj = & get_instance();
 	}
-	function getMenuStatus($menuFeed,$opened){
-		foreach($opened as $openMenu){
-			if($openMenu == $menuFeed){
-				return "active";
-			}
-		}
-		return "";
-	}
 	function grantElement($owner='everyone',$executor='everyone'){
 		if($owner=='everyone' && $executor=='everyone'){
 			return '';
@@ -325,9 +317,9 @@ class Common {
 		$out = array();
 		$web_settings = new Web_setting();
 		$web_settings->get();
-		$out['theme'] = $web_settings->theme;
-		$out['language'] = $web_settings->language;
-		$out['footer_text'] = $web_settings->footer_text;
+		$out['theme'] = "";// $web_settings->theme;
+		$out['language'] = "id";//$web_settings->language;
+		$out['footer_text'] = "PadiNET";//$web_settings->footer_text;
 		return $out;
 	}
 	function check_messages(){

@@ -1,32 +1,35 @@
 <?php
-class Problem extends DataMapper{
+class Problem extends CI_Model{
 	function __construct(){
 		parent::__construct();
 	}
-	
-	function get_combo_data($firstdata=""){
-		$objs = new Problem();
-		$objs->get();
-		$out = array();
-		if(!is_null($firstdata)){
-			$out[0] = $firstdata;
+	function get_combo_data($first_row=""){
+		$ci = & get_instance();
+		$sql = "select id,name from problems ";
+		$sql.= "order by create_date asc ";
+		$que = $ci->db->query($sql);
+		if($first_row!=''){
+			$out[0] = $first_row;
 		}
-		foreach($objs as $obj){
-			$out[$obj->id] = $obj->name;
+		foreach($que->result() as $res){
+			$out[$res->id] = $res->name;
 		}
 		return $out;
-	}
-	
+	}	
 	function getIndex($name){
-		$obj = new Problem();
-		$obj->where('name',$name)->get();
-		return $obj->id;
+		$ci = & get_instance();
+		$sql = "select * from problems ";
+		$sql.= "where name='".$name."' ";
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		return $res[0]->id;
 	}
-
 	function populate(){
-		$obj = new Problem();
-		$obj->get();
-		return $obj;
+		$ci = & get_instance();
+		$sql = "select * from problems ";
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		return $res;
 	}
 	
 }

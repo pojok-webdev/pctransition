@@ -1,6 +1,7 @@
 <?php
 class Client extends CI_Model{
 	var $ci;
+	var $id;
 /*	var $has_many = array(
 	'install_request',
 	'survey_request'=>array('join_other_as'=>'client'),
@@ -18,9 +19,10 @@ class Client extends CI_Model{
 	'survey_site','service',"disconnection"
 	);
 */
-	function __construct(){
+	function __construct($id = null){
 		parent::__construct();
 		$this->ci = & get_instance();
+		$this->id = $id;
 	}
 	function add($params){
 		$keys = array();
@@ -49,6 +51,12 @@ class Client extends CI_Model{
 		$sql.= "where id='".$params["id"]."'";
 		$this->ci->db->query($sql);
 		return $sql;
+	}
+	function get(){
+		$sql = "select * from clients ";
+		$sql.= "where id='".$this->id."' ";
+		$que = $this->ci->db->query($sql);
+		return $que->result();		
 	}
 	function get_clients(){
 		$sql = "select * from clients ";
@@ -110,12 +118,13 @@ class Client extends CI_Model{
 		}
 		return $out;
 	}
-	function get_obj_by_id($id){
+	function get_obj_by_id(){
+		$ci = & get_instance();
 		$sql = "select * from clients ";
 		$sql.= "where active='1' ";
-		$sql.= "and id='".$clientid."' ";
+		$sql.= "and id='".$this->id."' ";
 		$sql.= "order by name asc ";
-		$que = $this->ci->db->query($sql);
+		$que = $ci->db->query($sql);
 		return $que->result();
 	}
 	function populate($status=array('9'),$active=array('1'),$user=null){

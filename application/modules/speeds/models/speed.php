@@ -1,25 +1,27 @@
 <?php
-class Speed extends DataMapper{
+class Speed extends CI_Model{
 	function __construct(){
 		parent::__construct();
 	}
-	
 	function get_combo_data($firstdata=""){
-		$objs = new Speed();
-		$objs->get();
+		$ci = & get_instance();
+		$sql = "select * from speeds ";
+		$que = $ci->db->query($sql);
 		$out = array();
 		if(!is_null($firstdata)){
 			$out[0] = $firstdata;
 		}
-		foreach($objs as $obj){
+		foreach($que->result() as $obj){
 			$out[$obj->id] = $obj->name;
 		}
 		return $out;
-	}
-		
+	}		
 	function getIndex($name){
-		$obj = new Speed();
-		$obj->where('name',$name)->get();
-		return $obj->id;
+		$ci = & get_instance();
+		$sql = "select id from speeds ";
+		$sql.= "where name='".$name."' ";
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		return $res[0]->id;
 	}
 }

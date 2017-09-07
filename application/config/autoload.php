@@ -16,6 +16,7 @@
 		'pdftable','matrix','appsettings'
 	);
 	$autoload['helper'] = array(
+		'common',
 		'url',
 		'form',
 		'date',
@@ -56,7 +57,9 @@
 		'Disconnections/disconnection',
 		'Disconnectionlogs/disconnectionlog',
 		'Disconnection_operators/disconnection_operator',
+		*/
 		'Durations/duration',
+		/*
 		'Extendreasons/extendreason',
 		'Fbs/fb',
 		'Fbfees/fbfee',
@@ -91,9 +94,13 @@
 		'Medias/media',
 		'Messages/message',
 		'Modules/module',
+		*/
 		'Operators/operator',
+		/*
 		'Paqs/paq',
+		*/
 		'Problems/problem',
+		/*
 		'Positions/position',
 		'Preclients/preclient',
 		'Prepics/prepic',
@@ -102,8 +109,10 @@
 		'Ptps/ptp',
 		'Reminders/reminder',
 		'Reminderlogs/reminderlog',
+		*/
 		'Speeds/speed',
 		'Services/service',
+		/*
 		'Site_antennas/site_antenna',
 		'Site_devices/site_device',
 		'Site_wireless_radios/site_wireless_radio',
@@ -148,7 +157,9 @@
 		'Usage_periods/usage_period',*/
 		'Users/user',
 /*		'Vases/vas',
+*/
 		'Web_settings/web_setting',
+		/*
 		'Withdrawals/withdrawal',
 		'maintenancereport_images/maintenancereport_image',
 		'maintenancereport_kompetitors/maintenancereport_kompetitor',

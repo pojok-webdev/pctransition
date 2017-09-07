@@ -13,23 +13,55 @@ function getrolescombodata(){
 	}
 	return $out;
 }
-function getsalescombodata(){
-	$objs = new User();
-	$objs->where('active','1')->where_related('group','id','3')->get();
+/*function getsalescombodata(){
+	$ci = & get_instance();
+	$sql = "select from users a ";
+	$sql.= "left outer join groups_users b on b.user_id=a.id ";
+	$sql.= "left outer join groups c on c.id=b.group_id ";
+	$sql.= "where a.active='1' ";
+	$sql.= "and c.id=3 ";
+	$que = $ci->db->query($sql);
 	$out = array();
-	foreach($objs as $obj){
+	foreach($que->result() as $obj){
 		$out[$obj->id] = $obj->username;
 	}
 	return $out;
+}*/
+function getbusinessfieldcombodata(){
+	$objs = new Business_field();
+	return $objs->get_combo_data();	
 }
 function getbranchescombodata(){
 	$objs = new Branch();
-	$objs->where('active','1')->get();
-	$out = array();
-	foreach($objs as $obj){
-		$out[$obj->id] = $obj->name;
-	}
-	return $out;
+	return $objs->get_combo_data();
+}
+function getclientbyid($id){
+	$client = new Client($id);
+	return $client->get_obj_by_id();
+}
+function getspeedcombodata(){
+	$speed = new Speed();
+	return $speed->get_combo_data();
+}
+function getoperatorcombodata(){
+	$operator = new Operator();
+	return $operator->get_combo_data("Sales","Pilihlah");
+}
+function getservicecombodata(){
+	$service = new Service();
+	return $service->get_combo_data();
+}
+function getusercombodatabygroup(){
+	$obj = new User();
+	return $obj->get_combo_data_by_group();
+}
+function getproblemcombodata(){
+	$obj = new Problem();
+	return $obj->get_combo_data();
+}
+function getdurations(){
+	$obj = new Duration();
+	return $obj->get_combo_data();
 }
 function populate($status=array('9'),$active=array('1'),$user=null){
 	$userbranch = getuserbranches();

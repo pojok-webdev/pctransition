@@ -71,7 +71,7 @@
                             </thead>
                             <tbody>
                             <?php foreach($objs as $obj){?>
-								<?php if($user->can_change_am==='0'){
+								<?php if($user->can_change_am()==='0'){
 									$setamclass = 'btnsetam_';
 								}else{
 									$setamclass = 'btnsetam';
@@ -110,6 +110,6 @@
             <div class="dr"><span></span></div>
         </div>
     </div>
-<script type='text/javascript' src='<?php echo base_url();?>js/aquarius/Sales/clients.js'></script>
+<script type='text/javascript' src='/js/aquarius/Sales/clients.js'></script>
 </body>
 </html>

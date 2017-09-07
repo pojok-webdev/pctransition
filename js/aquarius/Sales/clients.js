@@ -10,29 +10,29 @@
 	$('#tClient').on('click','tbody tr .btneditclient',function(){
 		console.log("edit invoked");
 		id=$(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'clients/edit/'+id;
+		window.location.href = '/clients/edit/'+id;
 	});
 	$('.btnremoveclient').click(function(){
 		alert('Removeclient');
 	});
 	$('.btnsurvey').click(function(){
 		myid = $(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'survey_requests/add/'+myid;
+		window.location.href = '/survey_requests/add/'+myid;
 	});
 	$('.btninstallation').click(function(){
 		myid = $(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'install_requests/edit/'+myid;
+		window.location.href = '/install_requests/edit/'+myid;
 	});
 	$('.btnupgrade').click(function(){
 		myid = $(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'altergrades/add/'+myid;
+		window.location.href = '/altergrades/add/'+myid;
 	});
 	$('.btndisconnection').click(function(){
 		myid = $(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'disconnections/add/'+myid;
+		window.location.href = '/disconnections/add/'+myid;
 	});
 	$('.btntroubleshoot').click(function(){
-		window.location.href = thisdomain+'troubleshoots/add_lookup';
+		window.location.href = '/troubleshoots/add_lookup';
 	});
 	$('#tClient').on('click','tbody tr .btnsetam',function(){
 		console.log("yo klik me");
@@ -76,7 +76,7 @@
 		var id = $('#tClient tbody tr.selected').attr('myid'),
 			displacementdate = $("#displacementdate").getdate();
 		$.ajax({
-			url:thisdomain+'clients/displaceam',
+			url:'/clients/displaceam',
 			data:{'id':id,'sale_id':$('#replacersales').val()},
 			type:'post'
 		})
@@ -87,7 +87,7 @@
 			$('#tClient tbody tr.selected td.am').html($("#replacersales :selected").text());
 			console.log('sales replace',$("#replacersales :selected").text());
 			$.ajax({
-				url:thisdomain+'clients/saveamhistory',
+				url:'/clients/saveamhistory',
 				data: {'client_id':id,'user_id':$('#replacersales').val(),'username':$('#replacersales :selected').text(),'displacementdate':$("#displacementdate").attr("datetime"),'description':$('#description').val(),'createuser':'puji'},
 				type:'post'
 			});
@@ -97,13 +97,13 @@
 		});
 	});
 	$("#tClient").on("click",".btnviewsites",function(){
-		window.location.href = thisdomain+"client_sites/index/"+$(this).stairUp({level:4}).attr('myid');
+		window.location.href = "/client_sites/index/"+$(this).stairUp({level:4}).attr('myid');
 	});
 	$("#tClient").on("click",".btnsetpadibranch",function(){
 		console.log("SET PADIBRANCH INVOKED");
 		var myid = $(this).stairUp({level:4}).attr("myid");
 		$.ajax({
-			url:thisdomain+"client_sites/getbranches",
+			url:"/client_sites/getbranches",
 			data:{id:myid,columntoinspect:"client_id"},
 			type:"post",
 			dataType:"json"
@@ -137,10 +137,10 @@
 		mytable.fnDraw();
 	});
 	$("#nonactiveclient").click(function(){
-		window.location.href = thisdomain+"clients/index/nonactive";
+		window.location.href = "/clients/index/nonactive";
 	});
 	$("#activeclient").click(function(){
-		window.location.href = thisdomain+"clients/index/active";
+		window.location.href = "/clients/index/active";
 	});
 }(jQuery));
 

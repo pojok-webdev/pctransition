@@ -6,9 +6,18 @@ class User extends CI_Model{
 	'Commodities/commodity','grade','maintenance_request','group',
 	'user'=>array('class'=>'user','other_field'=>'supervisor'),'module','survey_request','install_request','troubleshoot_implementer');
 	var $ci;
-	function __construct(){
+	var $id;
+	function __construct($id = null){
 		parent::__construct();
 		$this->ci = & get_instance();
+		$this->id = $id;
+	}
+	function can_change_am(){
+		$ci = & get_instance();
+		$sql = "select can_change_am from users where id=" . $this->id;
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		return $res[0]->can_change_am;
 	}
 	function associate_supervisor_user($supervisor_id,$user_id,$identifier = 'id'){
 		$sql = "insert into supervisors_users (supervisor_id,user_id) ";
@@ -191,10 +200,10 @@ class User extends CI_Model{
 	}
 	function get_combo_data_by_group($group_name,$first_row = ''){
 		$out = array();
-		if($first_data!=''){
-			$out[0] = $first_data;
+		if($first_row!=''){
+			$out[0] = $first_row;
 		}
-		$sql = "select a.id,a.username,b.name,b.address from users a ";
+		$sql = "select a.id,a.username,c.name from users a ";
 		$sql.= "left outer join groups_users b on b .user_id=a.id ";
 		$sql.= "left outer join groups c on c.id=b.group_id ";
 		$sql.= "where a.active='1' and c.name='".$group_name."' ";
@@ -243,9 +252,10 @@ class User extends CI_Model{
 		return $res;
 	}
 	function get_user_by_id($id){
+		$ci = & get_instance();
 		$sql = "select id from users ";
 		$sql.= "where id=".$id."";
-		$que = $this->ci->db->query($sql);
+		$que = $ci->db->query($sql);
 		$res = $que->result();
 		return $res;
 	}

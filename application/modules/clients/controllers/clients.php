@@ -8,7 +8,10 @@ class Clients extends CI_Controller{
 	var $data;
 	function __construct(){
 		parent::__construct();
-		$this->setting = Common::get_web_settings();
+		
+		$this->setting = get_web_settings();
+		//$this->setting = Common::get_web_settings();
+		
 		$this->mpath = base_url() . 'index.php/clients/';
 		$this->lang->load('padi',$this->setting['language']);
 		$this->load->helper('user');
@@ -16,7 +19,7 @@ class Clients extends CI_Controller{
 		$this->load->helper('padi');
 		if($this->ion_auth->logged_in()){
 			$this->ionuser = $this->ion_auth->user()->row();
-			$this->data['user'] = User::get_user_by_id($this->ionuser->id);
+			//$this->data['user'] = User::get_user_by_id($this->ionuser->id);
 		}
 	}
 	function activate(){
@@ -54,14 +57,14 @@ class Clients extends CI_Controller{
 	}
 	function edit(){
 		$this->check_login();
-		$this->data['business_fields'] = Business_field::get_combo_data("Pilihlah");
-		$this->data['obj'] = Client::get_obj_by_id($this->uri->segment(3));
-		$this->data['speeds'] = Speed::get_combo_data();
-		$this->data['operators'] = Operator::get_combo_data();
-		$this->data['services'] = Service::get_combo_data("Pilihlah");
-		$this->data['users'] = User::get_combo_data_by_group("Sales","Pilihlah");
-		$this->data['problems'] = Problem::get_combo_data();
-		$this->data['durations'] = Duration::get_combo_data();
+		$this->data['business_fields'] = getbusinessfieldcombodata("Pilihlah");
+		$this->data['obj'] = getclientbyid($this->uri->segment(3));
+		$this->data['speeds'] = getspeedcombodata();
+		$this->data['operators'] = getoperatorcombodata();
+		$this->data['services'] = getservicecombodata("Pilihlah");
+		$this->data['users'] = getoperatorcombodata();
+		$this->data['problems'] = getproblemcombodata();
+		$this->data['durations'] = getdurations();
 		$this->data['usage_periods'] = Usage_period::get_combo_data();
 		$this->data['menuFeed'] = 'client';
 		$this->data['picroles'] = getrolescombodata();
@@ -366,9 +369,13 @@ class Clients extends CI_Controller{
 	function index(){
 		$condition = $this->uri->segment(3);
 		$this->check_login();
-		//$this->data['objs']=Client::populate(array('0','1','2','3','4','5','6','7','8','9','-','p'),array('1'));
-		$this->data['objs']=populate(array('0','1','2','3','4','5','6','7','8','9','-','p'),array('1'));
-		$this->data['sales'] = getsalescombodata();
+		$userid = $this->session->userdata("user_id");
+		$user = new User($userid);
+		$this->data["user"] = $user;
+		$this->data['objs']=populate(
+			array('0','1','2','3','4','5','6','7','8','9','-','p'),array('1')
+		);
+		$this->data['sales'] = $user->get_combo_data_by_group('3');
 		$this->data['branches'] = getbranchescombodata();
 		$this->data['menuFeed'] = 'client';
 		switch($this->session->userdata["role"]){
@@ -424,8 +431,11 @@ class Clients extends CI_Controller{
             echo "[" . implode(",",$userarray) . "]";
         }
 	function checkComplete($id){
-		$obj = new Client();
-		$obj->where('id',$id)->get();
+		$client = new Client($id);
+
+//		$obj = new Client();
+//		$obj->where('id',$id)->get();
+		$obj = $client->get();
 		$sign = true;
 		$arr = array();
 		foreach($this->db->list_fields("clients") as $field){
