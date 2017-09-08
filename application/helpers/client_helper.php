@@ -6,12 +6,7 @@ function getroles(){
 }
 function getrolescombodata(){
 	$objs = new Picrole();
-	$objs->get();
-	$out = array();
-	foreach($objs as $obj){
-		$out[$obj->id] = $obj->name;
-	}
-	return $out;
+	return $objs->get_combo_data();
 }
 /*function getsalescombodata(){
 	$ci = & get_instance();
@@ -39,6 +34,14 @@ function getclientbyid($id){
 	$client = new Client($id);
 	return $client->get_obj_by_id();
 }
+function getclientpics($id){
+	$obj = new Client($id);
+	return $obj->getpics();
+}
+function getclientsites($id){
+	$obj = new Client($id);
+	return $obj->getclientsites();
+}
 function getspeedcombodata(){
 	$speed = new Speed();
 	return $speed->get_combo_data();
@@ -61,6 +64,10 @@ function getproblemcombodata(){
 }
 function getdurations(){
 	$obj = new Duration();
+	return $obj->get_combo_data();
+}
+function getusageperiodcombodata(){
+	$obj = new Usage_period();
 	return $obj->get_combo_data();
 }
 function populate($status=array('9'),$active=array('1'),$user=null){

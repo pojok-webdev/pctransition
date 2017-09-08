@@ -140,7 +140,7 @@
                         <div class="row-form clearfix">
                             <div class="span3">Account Manager:</div>
                             <div class="span9">
-								<?php echo $obj->user->username;?>
+								<?php echo $obj->username;?>
 								<?php //echo form_dropdown('sale_id',$users,$obj->sale_id,'class="inp_client" id="sale_id" type="selectid"');?>
 							</div>
                         </div>
@@ -159,7 +159,7 @@
 							<table id="tblPIC" class="table">
 								<thead><tr><th>Nama</th><th>Posisi</th><th>Email</th><th>Telp</th><th>Aksi</th></tr></thead>
 								<tbody>
-									<?php foreach($obj->pic as $pic){?>
+									<?php foreach($clientpics as $pic){?>
 									<tr myid="<?php echo $pic->id?>">
 										<td class="picname"><?php echo $pic->name;?></td>
 										<td class="picrole"><?php echo $pic->prole;?></td>
@@ -173,10 +173,7 @@
 							</table>
                         </div>
                     </div>
-
                 </div>
-
-
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="head clearfix">
@@ -193,7 +190,7 @@
 						</thead>
 						<tbody>
 							<?php
-							foreach($obj->client_site as $site){
+							foreach($client_sites as $site){
 							?>
 								<tr class="clientsites" rowid='<?php echo $site->id;?>'>
 									<td class="expander"><span class="isw-plus"></span></td>
@@ -243,6 +240,6 @@
             </div>
         </div>
     </div>
-    <script type='text/javascript' src='<?php echo base_url();?>js/aquarius/Sales/clients/client_edit.js'></script>
+    <script type='text/javascript' src='/js/aquarius/Sales/clients/client_edit.js'></script>
 </body>
 </html>

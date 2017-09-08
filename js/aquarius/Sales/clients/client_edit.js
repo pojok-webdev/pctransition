@@ -61,7 +61,7 @@ $("#mySites").on("click","tr td.expander",function(){
 	});
 	$('#btnsaveservice').click(function(){
 		$.ajax({
-			url:thisdomain+'clientservices/save',
+			url:'/clientservices/save',
 			data:{"name":$("#servicename").val(),"client_site_id":$('.clientsites.selected').attr('rowid')},
 			type:"post",
 			success:function(data){
@@ -87,7 +87,7 @@ $("#mySites").on("click","tr td.expander",function(){
 	});
 	$('#btnupdateservice').click(function(){
 		$.ajax({
-			url:thisdomain+'clientservices/update',
+			url:'/clientservices/update',
 			data:{"name":$("#servicename").val(),"id":$(".tService tr.selected").attr("rowid")},
 			type:"post",
 			success:function(data){
@@ -150,13 +150,13 @@ $("#mySites").on("click","tr td.expander",function(){
 	$('#btnsave').click(function(){
 		$('.inp_client').makekeyvalparam();
 		$.ajax({
-			url:thisdomain+'clients/update',
+			url:'/clients/update',
 			type:'post',
 			data:JSON.parse('{"id":"'+$("#client_id").val()+'",'+$('.inp_client').attr('keyval')+'}')
 		}).done(function(data){
 			$('#dModal').modal().hideafter(1000);
-		}).fail(function(){
-			alert("Tidak dapat mengupdate Pelanggan, silakan hubungi Developer");
+		}).fail(function(err){
+			console.log("Err",err);
 		});
 	});
 	$('#picAdd').click(function(){
@@ -171,17 +171,17 @@ $("#mySites").on("click","tr td.expander",function(){
 	$('#btnsavepic').click(function(){
 		$('.inp_pic').makekeyvalparam();
 		$.ajax({
-			url:thisdomain+'pics/save',
+			url:'/../../pics/save',
 			data:JSON.parse('{'+$('.inp_pic').attr('keyval')+',"createuser":"'+$('#username').val()+'"}'),
 			type:'post'
-		}).fail(function(){
-			alert("tidak dapat menambahkan PIC, silakan hubungi Developer");
+		}).fail(function(err){
+			console.log("Err save pic",err);
 		}).done(function(data){
 			$('#tblPIC tbody').append('<tr myid="'+data+'"><td>'+$('#pic_name').val()+'</td><td>'+$('#pic_position').val()+'</td><td>'+$('#pic_email').val()+'</td><td>'+$('#pic_hp').val()+'</td><td><span class="rmPIC pointer">Hapus</span></td></tr>');
 			$('.rmPIC').on('click',function(){
 				thisrow = $(this).stairUp({level:2});
 				$.ajax({
-					url:thisdomain+'pics/remove',
+					url:'/pics/remove',
 					data:{id:data},
 					type:'post'
 				}).fail(function(){
@@ -205,7 +205,7 @@ $("#mySites").on("click","tr td.expander",function(){
 		thisrow = $(this).stairUp({level:2});
 		thisid = thisrow.attr('myid');
 		$.ajax({
-			url:thisdomain+'pics/remove',
+			url:'/pics/remove',
 			data:{id:thisid},
 			type:'post'
 		}).fail(function(){
@@ -238,7 +238,7 @@ $("#mySites").on("click","tr td.expander",function(){
 		console.log('keyvalparamn',$('.inp_pic').attr('keyval'));
 		console.log("myid",$('#tblPIC tbody tr.selected').attr('myid'));
 		$.ajax({
-			url:thisdomain+'pics/update',
+			url:'/pics/update',
 			data:JSON.parse('{"id":"'+$('#tblPIC tbody tr.selected').attr('myid')+'",'+$('.inp_pic').attr('keyval')+'}'),
 			type:'post',
 			success:function(){
@@ -254,7 +254,7 @@ $("#mySites").on("click","tr td.expander",function(){
 		});
 	});
 	$('.btneditclientsite').click(function(){
-		window.location.href = thisdomain+'client_sites/edit/'+$(this).stairUp({level:4}).attr("rowid");
+		window.location.href = '/client_sites/edit/'+$(this).stairUp({level:4}).attr("rowid");
 	});
 	$('#mySites').on('click','.btneditsite',function(){
 		var id = $(this).stairUp({level:4}).attr('rowid');
@@ -262,7 +262,7 @@ $("#mySites").on("click","tr td.expander",function(){
 		$(this).stairUp({level:4}).addClass('selected');
 		console.log('id',id);
 		$.ajax({
-			url:thisdomain+'client_sites/getobjbyid/'+id,
+			url:'/client_sites/getobjbyid/'+id,
 			dataType:'json',
 			success:function(dat){
 				console.log('dat',dat);
@@ -277,7 +277,7 @@ $("#mySites").on("click","tr td.expander",function(){
 	$('#btnsavesite').click(function(){
 		$('.inp_site').makekeyvalparam();
 		$.ajax({
-			url:thisdomain+'client_sites/save',
+			url:'/client_sites/save',
 			data:JSON.parse('{'+$('.inp_site').attr('keyval')+'}'),
 			type:'post',
 			success:function(data){
@@ -319,7 +319,7 @@ $("#mySites").on("click","tr td.expander",function(){
 		var myid = $('#mySites tbody tr.selected').attr('rowid');
 		$('.inp_site').makekeyvalparam();
 		$.ajax({
-			url:thisdomain+'client_sites/update',
+			url:'/client_sites/update',
 			data:JSON.parse('{"id":"'+myid+'",'+$('.inp_site').attr('keyval')+'}'),
 			type:'post',
 			success:function(){

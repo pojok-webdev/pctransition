@@ -44,7 +44,7 @@ class Client extends CI_Model{
 	function edit($params){
 		$arr = array();
 		foreach($params as $key=>$val){
-			array_push($arr,"'".$key."'='".$val."'");
+			array_push($arr,"".$key."='".$val."'");
 		}
 		$str = implode(",",$arr);
 		$sql = "update clients set ".$str." ";
@@ -53,8 +53,9 @@ class Client extends CI_Model{
 		return $sql;
 	}
 	function get(){
-		$sql = "select * from clients ";
-		$sql.= "where id='".$this->id."' ";
+		$sql = "select a.*,b.username from clients a ";
+		$sql.= "left outer join users b on b.id=a.sale_id ";
+		$sql.= "where a.id='".$this->id."' ";
 		$que = $this->ci->db->query($sql);
 		return $que->result();		
 	}
@@ -102,7 +103,6 @@ class Client extends CI_Model{
 		}
 		return $out;
 	}
-
 	function get_combo_data_sites($clientid,$first_data=''){
 		$out = array();
 		if($first_data!=''){
@@ -120,10 +120,26 @@ class Client extends CI_Model{
 	}
 	function get_obj_by_id(){
 		$ci = & get_instance();
-		$sql = "select * from clients ";
-		$sql.= "where active='1' ";
+		$sql = "select a.*,b.username from clients a ";
+		$sql.= "left outer join users b on b.id=a.sale_id ";
+		$sql.= "where a.active='1' ";
+		$sql.= "and a.id='".$this->id."' ";
+		$que = $ci->db->query($sql);
+		return $que->result()[0];
+	}
+	function getpics(){
+		$ci = & get_instance();
+		$sql = "select * from pics ";
+		$sql.= "where client_id='".$this->id."' ";
 		$sql.= "and id='".$this->id."' ";
-		$sql.= "order by name asc ";
+		$que = $ci->db->query($sql);
+		return $que->result();
+	}
+	function getclientsites(){
+		$ci = & get_instance();
+		$sql = "select * from client_sites ";
+		$sql.= "where client_id='".$this->id."' ";
+		$sql.= "and id='".$this->id."' ";
 		$que = $ci->db->query($sql);
 		return $que->result();
 	}

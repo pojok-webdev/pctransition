@@ -1,28 +1,21 @@
 <?php
-class Pic extends CI_Model{
+class Pic extends DataMapper{
 	var $has_one = array('client');
 		function __construct(){
 			parent::__construct();
 		}
 		function add($params){
-			$ci = & get_instance();
+			$obj = new Pic();
 			foreach($params as $key=>$val){
-				array_push($keys,$key);
-				array_push($vals,$val);
+				$obj->$key = $val;
 			}
-			$sql = "insert into pics ";
-			$sql.= "(".implode(",",$keys).") ";
-			$sql.= "values ";
-			$sql.= "('".implode("','",$vals)."') ";
-			$que = $ci->db->query($sql);
-			return $ci->db->insert_id();
+			$obj->save();
+			return $this->db->insert_id();
 		}		
 		function get_by_client_id($client_id){
-			$sql = "select * from pics ";
-			$sql.= "where client_id=".$client_id." ";
-			$ci = & get_instance();
-			$que = $ci->db->query($sql);
-			return $que->result();
+			$obj = new Pic();
+			$obj->where('client_id',$client_id)->get();
+			return $obj;
 		}
 		function getpic($role){
 			if($this->client_id){
@@ -59,17 +52,5 @@ class Pic extends CI_Model{
 				return '';
 			}
 			return '';
-		}
-		function save($params){
-			$keys = array();$vals = array();
-			foreach($params as $key=>$val){
-				array_push($keys,$key);
-				array_push($vals,$val);
-			}
-			$ci = & get_instance();
-			$sql = "insert into pics (".implode(",",$keys).") ";
-			$sql.= "values ('".implode("','",$vals)."') ";
-			$que = $ci->db->query($sql);
-			return $ci->db->insert_id();
 		}
 }

@@ -103,9 +103,9 @@
 		/*
 		'Positions/position',
 		'Preclients/preclient',
-		'Prepics/prepic',
+		'Prepics/prepic',*/
 		'Pics/pic',
-		'Picroles/picrole',
+		'Picroles/picrole',/*
 		'Ptps/ptp',
 		'Reminders/reminder',
 		'Reminderlogs/reminderlog',
@@ -153,8 +153,8 @@
 		'Troubleshoot_images/troubleshoot_image',
 		'Ticket_followups/ticket_followup',
 		'Tickets/ticket',
-		'Ticketcauses/ticketcause',
-		'Usage_periods/usage_period',*/
+		'Ticketcauses/ticketcause',*/
+		'Usage_periods/usage_period',
 		'Users/user',
 /*		'Vases/vas',
 */

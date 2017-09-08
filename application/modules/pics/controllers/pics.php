@@ -13,11 +13,7 @@ class Pics extends CI_Controller{
 	function save(){
 		$params = $this->input->post();
 		$obj = new Pic();
-		foreach($params as $key=>$val){
-			$obj->$key = $val;
-		}
-		$obj->save();
-		echo $this->db->insert_id();
+		echo $obj->save($params);
 	}
 	function saveupdate(){
 		$params = $this->input->post();

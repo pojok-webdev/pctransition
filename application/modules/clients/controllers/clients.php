@@ -65,11 +65,13 @@ class Clients extends CI_Controller{
 		$this->data['users'] = getoperatorcombodata();
 		$this->data['problems'] = getproblemcombodata();
 		$this->data['durations'] = getdurations();
-		$this->data['usage_periods'] = Usage_period::get_combo_data();
+		$this->data['usage_periods'] = getusageperiodcombodata();
 		$this->data['menuFeed'] = 'client';
 		$this->data['picroles'] = getrolescombodata();
-		$this->data['branches'] = Branch::get_combo_data();
+		$this->data['branches'] = getbranchescombodata();
 		$this->data['userbranches'] = getuserbranches();
+		$this->data["clientpics"] = getclientpics($this->uri->segment(3));
+		$this->data["client_sites"] = getclientsites($this->uri->segment(3));
 		switch($this->session->userdata["role"]){
 			case 'Administrator':
 				$this->load->view('adm/clients/edit',$this->data);
@@ -88,7 +90,8 @@ class Clients extends CI_Controller{
 	}
 	function update(){
 		$params = $this->input->post();
-		echo Client::edit($params);
+		$client = new Client($params["id"]);
+		echo $client->edit($params);
 	}
 	function entry_client(){
 		Common::check_authentication();
