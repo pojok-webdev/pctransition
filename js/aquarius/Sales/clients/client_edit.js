@@ -202,7 +202,7 @@ $("#mySites").on("click","tr td.expander",function(){
 		$(this).stairUp({level:4}).modal('hide');
 	});
 	$('.rmPIC').click(function(){
-		thisrow = $(this).stairUp({level:2});
+		thisrow = $(this).stairUp({level:4});
 		thisid = thisrow.attr('myid');
 		$.ajax({
 			url:'/pics/remove',
@@ -221,7 +221,7 @@ $("#mySites").on("click","tr td.expander",function(){
 		});
 	});
 	$('.editPIC').click(function(){
-		var tr = $(this).stairUp({level:2}),
+		var tr = $(this).stairUp({level:4}),
 			trid = tr.attr('myid');
 			$('#tblPIC tbody tr').removeClass('selected');
 			tr.addClass('selected');

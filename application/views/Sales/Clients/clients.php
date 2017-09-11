@@ -86,17 +86,17 @@
                                     <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-small dropdown-toggle"  <?php echo $this->common->grantElement($obj->userid,"decessor")?> >Aksi <span class="caret"></span></button>
                                             <ul class="dropdown-menu pull-right">
-                                                    <li class="submenuheader"><a><?php echo $obj->name;?></a></li>
-                                                    <li class="btneditclient pointer"><a>Edit</a></li>
-                                                    <li class="btnviewsites pointer" ><a>Lihat Cabang</a></li>
-                                                    <li class="divider survey_save"></li>
-                                                    <li class="btnsurvey"><a href="#">Survey</a></li>
-                                                    <li class="divider survey_save"></li>
-                                                    <li class="btnsetpadibranch"><a href="#">Set TS Cabang Yang Menangani</a></li>
-													<li class="<?php echo $setamclass;?>"><a>Pemindahan AM</a></li>
-													<li class="amhistory"><a>AM History</a></li>
-                                                    <li class="divider"></li>
-                                                    <li class="btndisconnection"><a>Pengajuan Diskoneksi</a></li>
+                                                <li class="submenuheader"><a><?php echo $obj->name;?></a></li>
+                                                <li class="btneditclient pointer"><a>Edit</a></li>
+                                                <li class="btnviewsites pointer" ><a>Lihat Cabang</a></li>
+                                                <li class="divider survey_save"></li>
+                                                <li class="btnsurvey"><a href="#">Survey</a></li>
+                                                <li class="divider survey_save"></li>
+                                                <li class="btnsetpadibranch"><a href="#">Set TS Cabang Yang Menangani</a></li>
+                                                <li class="<?php echo $setamclass;?>"><a>Pemindahan AM</a></li>
+                                                <li class="amhistory"><a>AM History</a></li>
+                                                <li class="divider"></li>
+                                                <li class="btndisconnection"><a>Pengajuan Diskoneksi</a></li>
                                             </ul>
                                     </div>
                                     </td>

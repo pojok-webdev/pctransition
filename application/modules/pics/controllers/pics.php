@@ -6,9 +6,7 @@ class Pics extends CI_Controller{
 	function remove(){
 		$params = $this->input->post();
 		$obj = new Pic();
-		$obj->where('id',$params['id'])->get();
-		$obj->delete();
-		echo $obj->check_last_query();
+		echo $obj->remove($params);
 	}
 	function save(){
 		$params = $this->input->post();

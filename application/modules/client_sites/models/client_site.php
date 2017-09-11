@@ -135,4 +135,18 @@ class Client_site extends CI_Model{
 		}
 		return $out;
 	}
+	function save($params){
+		$keys = array();$vals = array();
+		foreach($params as $key=>$val){
+			array_push($keys,$key);
+			array_push($vals,$val);
+		}
+		$ci = & get_instance();
+		$sql = "insert into client_sites ";
+		$sql.= "(".implode(",",$keys).") ";
+		$sql.= "values ";
+		$sql.= "('".implode("','",$vals)."')";
+		$ci->db->query($sql);
+		return $ci->db->insert_id();
+	}
 }

@@ -134,9 +134,6 @@
 								<?php echo form_dropdown('business_field',$business_fields,$obj->business_field,'class="inp_client" type="select"');?>
 							</div>
                         </div>
-
-                        
-                        
                         <div class="row-form clearfix">
                             <div class="span3">Account Manager:</div>
                             <div class="span9">
@@ -165,8 +162,18 @@
 										<td class="picrole"><?php echo $pic->prole;?></td>
 										<td class="picemail"><?php echo $pic->email;?></td>
 										<td class="pictelphp"><?php echo $pic->hp;?></td>
-										<td><span class="editPIC pointer">Edit</span></td>
-										<!--<td><span class="rmPIC pointer">Hapus</span></td>-->
+										<td>
+											<div class="btn-group">                                        
+												<button data-toggle="dropdown" class="btn dropdown-toggle">Action 
+													<span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li class="editPIC pointer"><a>Edit</a></li>
+													<li class="divider"></li>
+													<li class="rmPIC"><a>Hapus</a></li>
+												</ul>
+											</div>
+										</td>
 									</tr>
 									<?php }?>
 								</tbody>

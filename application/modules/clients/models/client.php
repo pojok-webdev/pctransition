@@ -131,7 +131,6 @@ class Client extends CI_Model{
 		$ci = & get_instance();
 		$sql = "select * from pics ";
 		$sql.= "where client_id='".$this->id."' ";
-		$sql.= "and id='".$this->id."' ";
 		$que = $ci->db->query($sql);
 		return $que->result();
 	}
@@ -139,7 +138,6 @@ class Client extends CI_Model{
 		$ci = & get_instance();
 		$sql = "select * from client_sites ";
 		$sql.= "where client_id='".$this->id."' ";
-		$sql.= "and id='".$this->id."' ";
 		$que = $ci->db->query($sql);
 		return $que->result();
 	}

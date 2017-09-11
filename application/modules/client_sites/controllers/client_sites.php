@@ -6,7 +6,8 @@ class Client_sites extends CI_Controller{
 		if($this->ion_auth->logged_in()){
 			$this->load->model("pproduct");
 			$this->ionuser = $this->ion_auth->user()->row();
-			$this->data['user'] = User::get_user_by_id($this->ionuser->id);
+			$user = new User();
+			$this->data['user'] = $user->get_user_by_id($this->ionuser->id);
 		}
 	}
 	function testRelation(){
@@ -204,11 +205,7 @@ class Client_sites extends CI_Controller{
 	function save(){
 		$params = $this->input->post();
 		$obj = new Client_site();
-		foreach($params as $key=>$val){
-			$obj->$key = $val;
-		}
-		$obj->save();
-		echo $this->db->insert_id();
+		echo $obj->save($params);
 	}
 	function save_apwifi(){
 		$params = $this->input->post();
