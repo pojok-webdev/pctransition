@@ -95,14 +95,24 @@ class Client_site extends CI_Model{
 	}
 	function populate($client_id=null){
 		if($client_id!=null){
-			$sql = "select id,name from client_sites ";
-			$sql.= "where active='1' ";
-			$sql.= "and client_id='".$client_id."'";
-			$sql.= "order by name asc ";
+			$sql = "select a.id,a.address,a.city,a.active,a.fbcomplete,b.name,c.username sales, ";
+			$sql.= "pic_name,pic_phone_area,pic_phone,c.id client_user_id ";
+			$sql.= "from client_sites a ";
+			$sql.= "left outer join clients b on b.id=a.client_id ";
+			$sql.= "left outer join users c on c.id=b.sale_id ";
+			$sql.= "where a.active='1' ";
+			$sql.= "and a.client_id='".$client_id."' ";
+			$sql.= "group by a.id,a.address,a.city,a.active,a.fbcomplete,b.name,c.username ";
+			$sql.= "order by id asc ";
 		}else{
-			$sql = "select id,name from client_sites ";
-			$sql.= "where active='1' ";
-			$sql.= "order by name asc ";
+			$sql = "select a.id,a.address,a.city,a.active,a.fbcomplete,b.name,c.username sales, ";
+			$sql.= "pic_name,pic_phone_area,pic_phone,c.id client_user_id ";
+			$sql.= "from client_sites a ";
+			$sql.= "left outer join clients b on b.id=a.client_id ";
+			$sql.= "left outer join users c on c.id=b.sale_id ";
+			$sql.= "where a.active='1' ";
+			$sql.= "group by a.id,a.address,a.city,a.active,a.fbcomplete,b.name,c.username ";
+			$sql.= "order by id asc ";
 		}
 		$que = $this->ci->db->query($sql);
 		return $que->result();

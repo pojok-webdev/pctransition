@@ -66,7 +66,7 @@
         <div class="breadLine">
             <ul class="breadcrumb">
 				<li><a href="#">PadiApp</a> <span class="divider">></span></li>
-                <li><a href="#">Pelanggan</a> <span class="divider">></span></li>
+                <li><a href="/clients">Pelanggan</a> <span class="divider">></span></li>
                 <li class="active">Edit</li>
             </ul>
         </div>

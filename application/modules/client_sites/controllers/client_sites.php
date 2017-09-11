@@ -1,14 +1,25 @@
 <?php
 class Client_sites extends CI_Controller{
-	var $data,$user,$ionuser;
+	var $data;var $user;var $ionuser;var $setting;
 	function __construct(){
 		parent::__construct();
+		/*
+		//$this->setting = Common::get_web_settings();
+		
+		$this->mpath = base_url() . 'index.php/clients/';
+		$this->lang->load('padi',$this->setting['language']);
+		$this->load->helper('user');
+		$this->load->helper('client');
+		$this->load->helper('padi');
+
+
 		if($this->ion_auth->logged_in()){
+		//if($ion_auth->logged_in()){
 			$this->load->model("pproduct");
 			$this->ionuser = $this->ion_auth->user()->row();
 			$user = new User();
 			$this->data['user'] = $user->get_user_by_id($this->ionuser->id);
-		}
+		}*/
 	}
 	function testRelation(){
 		$client = new Client_site();
@@ -26,7 +37,7 @@ class Client_sites extends CI_Controller{
 	}
 	function check_login(){
 		if(!$this->ion_auth->logged_in()){
-			redirect(base_url() . 'index.php/adm/login');
+			redirect('/index.php/adm/login');
 		}
 	}
 	function feedData(){
@@ -144,9 +155,10 @@ class Client_sites extends CI_Controller{
 		$this->check_login();
 		$this->data['menuFeed'] = 'clientSite';
 		$client_id = $this->uri->segment(3);
-		$objs = Client_site::populate($client_id);
+		$clientsites = new Client_site();
+		$objs = $clientsites->populate($client_id);
 		if($this->uri->total_segments()==3){
-			$this->data['clientname'] = $objs->client->name;
+			$this->data['clientname'] = $objs[0]->name;
 		}else{
 			$this->data['clientname'] = 'Semua';
 		}
