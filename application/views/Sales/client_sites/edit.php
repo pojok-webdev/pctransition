@@ -14,7 +14,7 @@
         <div class="breadLine">
             <ul class="breadcrumb">
 				<li><a href="#">PadiApp</a> <span class="divider">></span></li>
-                <li><a href="<?php echo base_url();?>index.php/clients">Pelanggan</a> <span class="divider">></span></li>
+                <li><a href="/index.php/clients">Pelanggan</a> <span class="divider">></span></li>
                 <li><a href="#">Cabang Pelanggan</a> <span class="divider">></span></li>
                 <li class="active">Edit</li>
             </ul>
@@ -24,7 +24,7 @@
 			<div class="block-fluid without-head">
 				<div class="toolbar clearfix">
 					<div class="left">
-						<?php echo $obj->client->name;?>
+						<?php echo $obj->name;?>
 					</div>
 					<div class="right">
 						<div class="btn-group">
@@ -47,7 +47,7 @@
 									<?php for($i=1;$i<=count($branches);$i++){?>
 										<?php
 											$tocheck = true;
-											foreach($obj->branch as $br){
+											foreach($branch_handling as $br){
 												
 												if($i===$br->id){
 													$tocheck = false;
@@ -71,7 +71,7 @@
                 <div class="span6">
                     <div class="head clearfix">
                         <div class="isw-documents"></div>
-                        <h1>Edit Cabang Pelanggan (<?php echo $obj->client->name;?>)</h1>
+                        <h1>Edit Cabang Pelanggan (<?php echo $obj->name;?>)</h1>
                     </div>
                     <div class="block-fluid">
                         <div class="row-form clearfix">
@@ -81,7 +81,9 @@
 
                         <div class="row-form clearfix">
                             <div class="span3">Layanan:</div>
-                            <div class="span9"><?php echo form_dropdown('service_id',$services,$obj->client->service_id,'id="service" class="inp_client" type="selectid"');?></div>
+                            <div class="span9">
+                            <?php echo form_dropdown('service_id',$services,$obj->service_id,'id="service" class="inp_client" type="selectid"');?>
+                            </div>
                         </div>
 
                         <div class="row-form clearfix">
@@ -108,7 +110,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach($obj->clientservice as $service){?>
+									<?php foreach($clientservices as $service){?>
 									<tr myid=<?php echo $service->id;?>>
 										<td class="sname"><?php echo $service->product;?> <?php echo $service->name;?></td>
                                         <td>
@@ -136,7 +138,7 @@
                         <div class="isw-grid"></div>
                         <h1>PIC</h1>
 						<ul class="buttons">
-							<li><span class="isw-plus" title="simpan"></span></li>
+							<li><span class="isw-user" title="simpan"></span></li>
 						</ul>
                     </div>
                     <div class="block-fluid">
@@ -168,7 +170,7 @@
                         <div class="row-form clearfix">
                             <div class="span3">Account Manager:</div>
                             <div class="span9">
-								<?php echo $obj->client->user->username;?>
+								<?php echo $obj->username;?>
 							</div>
                         </div>
                     </div>

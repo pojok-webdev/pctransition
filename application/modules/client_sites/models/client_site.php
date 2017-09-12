@@ -22,9 +22,11 @@ class Client_site extends CI_Model{
 		'clientsitesale',
 		'survey_site'
 	);*/
-	function __construct(){
+	var $id;
+	function __construct($id = null){
 		parent::__construct();
 		$this->ci = & get_instance();
+		$this->id = $id;
 	}
 	function add($params){
 		$keys = array();
@@ -83,6 +85,21 @@ class Client_site extends CI_Model{
 		}
 		return $out;
 	}
+	function getbusinessfieldcombodata($first_data = "Pilihlah"){
+		$out = array();
+		if($first_data!=''){
+			$out[0] = $first_data;
+		}
+		$sql = "select id,name from business_fields ";
+		$sql.= "where active='1' ";
+		$sql.= "order by name asc ";
+		$que = $this->ci->db->query($sql);
+		$out = array();
+		foreach ($que->result() as $res){
+			$out[$res->id] = $res->name;
+		}
+		return $out;		
+	}
 	function has_modified($id){
 		$sql = "select id,name from client_sites ";
 		$sql.= "where id='".$id."' ";
@@ -119,17 +136,25 @@ class Client_site extends CI_Model{
 	}
 	function populatebyid($id=null){
 		if($id!=null){
-			$sql = "select id,name from client_sites ";
+			$sql = "select id,address from client_sites ";
 			$sql.= "where id='".$id."' ";
 		}else{
-			$sql = "select id,name from client_sites ";
+			$sql = "select id,address from client_sites ";
 		}
 		$que = $this->ci->db->query($sql);
 		return $que->result();
 	}
-	function get_obj_by_id($id){
-		$sql = "select id,name from client_sites ";
-		$sql.= "where id='".$id."' ";
+	function get_obj_by_id(){
+		$sql = "select a.id,a.address,b.name,a.service_id,d.name service,a.city,a.pic_name,";
+		$sql.= "a.pic_position,a.pic_email,a.pic_phone_area,a.pic_phone,e.username,";
+		$sql.= "integer_part,group_concat(c.branch_id) branch from client_sites a ";
+		$sql.= "left outer join clients b on b.id=a.client_id ";
+		$sql.= "left outer join branches_client_sites c on c.client_site_id=a.id ";
+		$sql.= "left outer join services d on d.id=a.service_id ";
+		$sql.= "left outer join users e on e.id=b.sale_id ";
+		$sql.= "where a.id='".$this->id."' ";
+		$sql.= "group by a.id,a.address,b.name,a.service_id,d.name,a.city,a.pic_name,";
+		$sql.= "a.pic_position,a.pic_email,a.pic_phone_area,a.pic_phone,e.username,integer_part ";
 		$que = $this->ci->db->query($sql);
 		return $que->result();
 	}
@@ -145,6 +170,46 @@ class Client_site extends CI_Model{
 		}
 		return $out;
 	}
+	function get_branch_combo_data(){
+		$sql = "select a.id,a.abbr from branches a ";
+		$sql.= "where active='1' ";
+		$sql.= "order by name asc ";
+		$que = $this->ci->db->query($sql);
+		$out = array();
+		foreach ($que->result() as $res){
+			$out[$res->id] = $res->abbr;
+		}
+		return $out;		
+	}
+	function get_branches_handling(){
+		$sql = "select a.id,a.address,b.name,c.branch_id,b.name from client_sites a ";
+		$sql.= "left outer join branches_client_sites c on c.client_site_id=a.id ";
+		$sql.= "left outer join branches b on b.id=c.branch_id ";
+		$sql.= "where a.id='".$this->id."' ";
+		$que = $this->ci->db->query($sql);
+		return $que->result();
+	}
+	function get_clientservices(){
+		$sql = "select a.id,a.name from clientservices a ";
+		$sql.= "where a.client_site_id=".$this->id. " ";
+		$que = $this->ci->db->query($sql);
+		return $que->result();		
+	}
+	function get_service_combo_data($first_data="Pilihlah"){
+		$out = array();
+		if($first_data!=''){
+			$out[0] = $first_data;
+		}
+		$sql = "select a.id,a.name,a.abbreviation from services a ";
+		$sql.= "where status='1' ";
+		$sql.= "order by name asc ";
+		$que = $this->ci->db->query($sql);
+		$out = array();
+		foreach ($que->result() as $res){
+			$out[$res->id] = $res->name;
+		}
+		return $out;		
+	}
 	function save($params){
 		$keys = array();$vals = array();
 		foreach($params as $key=>$val){
@@ -158,5 +223,30 @@ class Client_site extends CI_Model{
 		$sql.= "('".implode("','",$vals)."')";
 		$ci->db->query($sql);
 		return $ci->db->insert_id();
+	}
+	function deletebranchesbyid(){
+		$sql = "delete from branches_client_sites where client_site_id = " . $this->id;
+		$this->ci->db->query($sql);
+		return $sql;
+	}
+	function savebranch($branch_id){
+		$sql = "insert into branches_client_sites ";
+		$sql.= "(client_site_id,branch_id) ";
+		$sql.= "values ";
+		$sql.= "(".$this->id.",".$branch_id.") ";
+		$this->ci->db->query($sql);
+		return $sql;
+	}
+	function update($params){
+		$arr = array();
+		foreach($params as $key=>$val){
+			array_push($arr,"".$key."='".$val."'");
+		}
+		$sql = "update client_sites ";
+		$sql.= "set ".implode(",",$arr)." ";
+		$sql.= "where id=".$params["id"]." ";
+		$ci = & get_instance();
+		$ci->db->query($sql);
+		return $sql;
 	}
 }

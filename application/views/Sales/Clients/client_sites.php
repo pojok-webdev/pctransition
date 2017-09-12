@@ -89,7 +89,8 @@
                                     <td class="updatable" fieldName="status"><?php echo $status;?></td>
                                     <td>
 										<div class="btn-group">
-											<button data-toggle="dropdown" class="btn btn-small dropdown-toggle"  <?php echo $this->common->grantElement($obj->client_user_id,"decessor")?> >Aksi 
+											<button data-toggle="dropdown" class="btn btn-small dropdown-toggle"  
+                                            <?php echo $common->grantElement($obj->client_user_id,"decessor")?> >Aksi 
                                             <span class="caret"></span>
                                             </button>
 											<ul class="dropdown-menu pull-right">
@@ -116,6 +117,6 @@
             <div class="dr"><span></span></div>
         </div>
     </div>
-<script type='text/javascript' src='<?php echo base_url();?>js/aquarius/Sales/client_sites.js'></script>
+<script type='text/javascript' src='/js/aquarius/Sales/client_sites.js'></script>
 </body>
 </html>

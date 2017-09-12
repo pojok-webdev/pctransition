@@ -11,7 +11,7 @@
 	$('.btnsave').click(function(){
 		$('.inp_client').makekeyvalparam();
 		$.ajax({
-			url:thisdomain+'client_sites/update',
+			url:'/client_sites/update',
 			type:'post',
 			data:JSON.parse('{"id":"'+$("#client_id").val()+'",'+$('.inp_client').attr('keyval')+'}')
 		}).done(function(data){
@@ -23,7 +23,7 @@
 			console.log("BRANCHES",str);
 			console.log("CLIENTID",$("#client_id").val());
 			$.ajax({
-				url:thisdomain+"client_sites/savebranch",
+				url:"/client_sites/savebranch",
 				data:{client_site_id:$("#client_id").val(),branches:str},
 				type:"post"
 			})
@@ -36,8 +36,8 @@
 				console.log("TIDAK DAPAT MENYIMPOAN BRANCH",err);
 			});
 			
-		}).fail(function(){
-			alert("Tidak dapat mengupdate Pelanggan, silakan hubungi Developer");
+		}).fail(function(err){
+			console.log("Error btnsave",err);
 		});
 	});
 	$('.closemodal').click(function(){

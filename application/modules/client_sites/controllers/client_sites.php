@@ -3,6 +3,7 @@ class Client_sites extends CI_Controller{
 	var $data;var $user;var $ionuser;var $setting;
 	function __construct(){
 		parent::__construct();
+		$this->load->helper("client_site");
 		/*
 		//$this->setting = Common::get_web_settings();
 		
@@ -15,8 +16,9 @@ class Client_sites extends CI_Controller{
 
 		if($this->ion_auth->logged_in()){
 		//if($ion_auth->logged_in()){
+			*/
 			$this->load->model("pproduct");
-			$this->ionuser = $this->ion_auth->user()->row();
+			$this->ionuser = $this->ion_auth->user()->row();/*
 			$user = new User();
 			$this->data['user'] = $user->get_user_by_id($this->ionuser->id);
 		}*/
@@ -92,21 +94,30 @@ class Client_sites extends CI_Controller{
 	}
 	function edit(){
 		$this->check_login();
-		$this->data['business_fields'] = Business_field::get_combo_data("Pilihlah");
-		$this->data['obj'] = Client_site::get_obj_by_id($this->uri->segment(3));
+		$this->data['business_fields'] = getbusinessfieldcombodata($this->uri->segment(3));//Business_field::get_combo_data("Pilihlah");
+		$this->data['obj'] = get_client_site_by_id($this->uri->segment(3));
+		/*
 		$this->data['speeds'] = Speed::get_combo_data();
 		$this->data['operators'] = Operator::get_combo_data();
-		$this->data['services'] = Service::get_combo_data("Pilihlah");
+		*/
+		$this->data['services'] = get_service_combo_data("Pilihlah");
+		$this->data['clientservices'] = get_clientservices($this->uri->segment(3));
+		/*
 		$this->data['users'] = User::get_combo_data_by_group("Sales","Pilihlah");
 		$this->data['problems'] = Problem::get_combo_data();
 		$this->data['durations'] = Duration::get_combo_data();
 		$this->data['usage_periods'] = Usage_period::get_combo_data();
+		*/
 		$this->data['menuFeed'] = 'client';
-		$this->data["products"]=$this->pproduct->getproducts();
+		
+		$this->data["products"]= getproducts();
+		/*
 		$this->data["smartvalue"]=$this->pproduct->smartvalue();
-		$this->data["business"]=$this->pproduct->business();
-
-		$this->data['branches'] = Branch::get_combo_data();
+*/
+		$this->data["business"]=getbusiness();
+		$this->data['branches'] = get_branch_combo_data();
+		$this->data['branch_handling'] = get_branches_handling($this->uri->segment(3));
+		
 		switch($this->session->userdata["role"]){
 			case 'Administrator':
 				$this->load->view('adm/client_sites/edit',$this->data);
@@ -156,6 +167,7 @@ class Client_sites extends CI_Controller{
 		$this->data['menuFeed'] = 'clientSite';
 		$client_id = $this->uri->segment(3);
 		$clientsites = new Client_site();
+		$this->data['common'] = new Common();
 		$objs = $clientsites->populate($client_id);
 		if($this->uri->total_segments()==3){
 			$this->data['clientname'] = $objs[0]->name;
@@ -270,9 +282,8 @@ class Client_sites extends CI_Controller{
 	}
 	function update(){
 		$params = $this->input->post();
-		$obj = new Client_site();
-		$obj->where('id',$params['id'])->update($params);
-		return $obj->check_last_query();
+		$obj = new Client_site($params["id"]);
+		echo $obj->update($params);
 	}
 	function view_devices(){
 		$this->check_login();
@@ -329,19 +340,11 @@ class Client_sites extends CI_Controller{
 	}
 	function savebranch(){
 		$params = $this->input->post();
-		$client = new Client_site();
-		$branches = $params["branches"];
-		$client->where("id",$params["client_site_id"])->get();
-		$branchtodel = new Branch();
-		$branchtodel->get();
-		$client->delete($branchtodel->all);
-		for($i=0;$i<strlen($params["branches"]);$i++){
-			$branch = new Branch();
-			$branch->where("id",$branches[$i])->get();
-			$client->save($branch);
+		$obj = new Client_site($params["client_site_id"]);
+		$obj->deletebranchesbyid();
+		for($c=0;$c<strlen($params["branches"]);$c++){
+			$obj->savebranch(substr($params["branches"],$c,1));
 		}
-		echo $client->check_last_query();
-		//echo $branches;
 	}
 	function savesalesbranch(){
 		$params = $this->input->post();

@@ -5,23 +5,24 @@ class Common {
 		$this->obj = & get_instance();
 	}
 	function grantElement($owner='everyone',$executor='everyone'){
+		$obj = & get_instance();
 		if($owner=='everyone' && $executor=='everyone'){
 			return '';
 		}
-		if($owner!=$this->obj->ionuser->id && $executor=='everyone'){
+		if($owner!=$obj->ionuser->id && $executor=='everyone'){
 			return '';
 		}
 		if(($this->is_decessor($owner,$this->obj->ionuser->id) && $executor=='decessor')||$owner==$this->obj->ionuser->id){
 			return '';
 		}
-		if($owner!=$this->obj->ionuser->id && $executor=='owner'){
+		if($owner!=$obj->ionuser->id && $executor=='owner'){
 			return 'disabled="disabled"';
 		}
-		if($owner==$this->obj->ionuser->id && $executor=='owner'){
+		if($owner==$obj->ionuser->id && $executor=='owner'){
 			return '';
 		}
 		if($executor=='group'){
-			if(Group::get_groupname($this->obj->ionuser->group_id) == $owner){
+			if(Group::get_groupname($obj->ionuser->group_id) == $owner){
 				return '' . $owner;
 			}
 			return 'disabled="disabled"';

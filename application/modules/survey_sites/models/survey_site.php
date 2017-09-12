@@ -18,10 +18,12 @@ class Survey_site extends CI_Model{
 	function get_images($site_id){
 		$sql = "select * from survey_images ";
 		$sql.= "where survey_site_id=".$site_id." ";
+		$que = $this->ci->db->query($sql);
+
 		$objs = new Survey_image();
 		$objs->where('survey_site_id',$site_id)->get();
 		$arr = array();
-		for($c=0;$c<ceil($objs->result_count()/2);$c++){
+		for($c=0;$c<ceil($que->num_rows()/2);$c++){
 			$myimages = new Survey_image();
 			$myimages->where('survey_site_id',$site_id)->get(2,$c*2);
 			$myarr = array();

@@ -50,7 +50,7 @@
 	});
 	$('.btneditclient').click(function(){
 		id=$(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'client_sites/edit/'+id;
+		window.location.href = '/client_sites/edit/'+id;
 	});
 	$('.btnremoveclient').click(function(){
 		alert('Removeclient');
@@ -58,22 +58,22 @@
 	$('.btnsurvey').click(function(){
 		//myid = $(this).stairUp({level:4}).attr('myid');
 		myid = $(this).stairUp({level:4}).attr('clientid');
-		window.location.href = thisdomain+'survey_requests/add/'+myid;
+		window.location.href = '/survey_requests/add/'+myid;
 	});
 	$('.btninstallation').click(function(){
 		myid = $(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'install_requests/edit/'+myid;
+		window.location.href = '/install_requests/edit/'+myid;
 	});
 	$('.btnupgrade').click(function(){
 		myid = $(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'altergrades/add/'+myid;
+		window.location.href = '/altergrades/add/'+myid;
 	});
 	$('.btndisconnection').click(function(){
 		myid = $(this).stairUp({level:4}).attr('myid');
-		window.location.href = thisdomain+'disconnections/add/'+myid;
+		window.location.href = '/disconnections/add/'+myid;
 	});
 	$('.btntroubleshoot').click(function(){
-		window.location.href = thisdomain+'troubleshoots/add_lookup';
+		window.location.href = '/troubleshoots/add_lookup';
 	});
 	$('.clientStatus').click(function(){
 		$('.clientStatus').removeClass('selected');
