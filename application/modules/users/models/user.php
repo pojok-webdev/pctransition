@@ -121,7 +121,7 @@ class User extends CI_Model{
 		$sql.= "where a.id='".$user_id."'";
 		$que = $this->ci->db->query($sql);
 		$res = $que->result();
-		return $res->name;
+		return $res[0]->name;
 	}
 	function getgroupsbyid($user_id){
 		$sql = "select c.name from users a ";

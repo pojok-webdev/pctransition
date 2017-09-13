@@ -52,9 +52,9 @@
 		'Cities/city','Clients/client','Client_sites/client_site',
 		'Client_priorities/client_priority',
 		'Datacenters/datacenter',
-/*		'Devices/device',
+		'Devices/device',
 		'Devicetypes/devicetype',
-		'Disconnections/disconnection',
+/*		'Disconnections/disconnection',
 		'Disconnectionlogs/disconnectionlog',
 		'Disconnection_operators/disconnection_operator',
 		*/
@@ -64,7 +64,10 @@
 		'Fbs/fb',
 		'Fbfees/fbfee',
 		'Fbpics/fbpic',
-		'Groups/group','Group_preferences/group_preference',
+		*/
+		'Groups/group',
+		/*
+		'Group_preferences/group_preference',
 		'Grades/grade',
 		'Install_antennas/install_antenna',
 		'Install_ap_wifis/install_ap_wifi',
@@ -89,19 +92,23 @@
 		'Maintenance_operators/maintenance_operator',
 		'Maintenanceoperators/maintenanceoperator',
 		'Maintenance_pics/maintenance_pic',
+		*/
 		'Materialtypes/materialtype',
+/*
 		'Materials/material',
 		'Medias/media',
 		'Messages/message',
 		'Modules/module',
 		*/
 		'Operators/operator',
+		'Pap',
+		'Pbtstower',
 		/*
 		'Paqs/paq',
 		*/
 		'Problems/problem',
-		/*
 		'Positions/position',
+		/*
 		'Preclients/preclient',
 		'Prepics/prepic',*/
 		'Pics/pic',
@@ -122,7 +129,10 @@
 		'Site_pics/site_pic',
 		'Site_switches/site_switch',
 		'Survey_dates/survey_date',
-		'Survey_gps_datas/survey_gps_data','Surveys/survey',
+		'Survey_gps_datas/survey_gps_data',
+		*/
+		'Surveys/survey',
+		/*
 		'Survey_bts_distances/survey_bts_distance','Survey_client_distances/survey_client_distance',
 		'Survey_devices/survey_device',
 		'Survey_images/survey_image',
@@ -133,7 +143,9 @@
 		'Surveypackages/surveypackage',
 		'Surveypackagedetails/surveypackagedetail',
 		'Survey_bas/survey_ba',
+		*/
 		'Survey_sites/survey_site',
+		/*
 		'Survey_site_distances/survey_site_distance',
 		'Suspects/suspect',
 		'Telemarketing/telemarketing',

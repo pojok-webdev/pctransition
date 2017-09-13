@@ -11,13 +11,14 @@ $(document).ready(function () {
 			{"sWidth": "95px", "sClass": "updatable", "fieldName": "status"},
 			{"sWidth": "95px", "sClass": "updatable", "fieldName": "duration"},
 			null,
-			null, null
+			null, 
+			null
 		],
 		"aaSorting": [[2, "desc"]]
 	});
 	var nNodes = dtSurvey.fnGetNodes();
 	$(this).fieldUpdater({
-		url: thisdomain + "surveys/feedData",
+		url: "/surveys/feedData",
 		cellClass: 'updatable',
 		fieldName: 'fieldName',
 		idAttr: 'myid',
@@ -40,7 +41,7 @@ $(document).ready(function () {
 		//var maxid = 216;
 		setRows(function(maxid){
 			$.ajax({
-				url: thisdomain + 'surveys/getRecordOver/' + maxid,
+				url: '/surveys/getRecordOver/' + maxid,
 				type: "get",
 				dataType: "json"
 			}).done(function (data) {
@@ -70,7 +71,7 @@ $(document).ready(function () {
 		});
 	}, 2000);*/
 	$('#permintaansurvey').click(function () {
-		window.location.href = thisdomain + 'preclients/lookup';
+		window.location.href = '/preclients/lookup';
 	});
 	$(nNodes).find(".tohuman").sql2idformat();
 	$(nNodes).find(".tohumandate").formatiddate();
@@ -80,10 +81,10 @@ $(document).ready(function () {
 		$(".content").toggleClass("pcontent");
 	});
 	$('#tSurveys').on("click", "tbody tr .btn_edit", function () {
-		window.location.href = thisdomain + 'surveys/edit/' + $(this).stairUp({level:4}).attr('myid');
+		window.location.href = '/surveys/edit/' + $(this).stairUp({level:4}).attr('myid');
 	});
 	$("#tSurveys").on("click", "tbody tr .btn_report", function () {
-		window.location.href = thisdomain + "surveys/showreport/" + $(this).stairUp({level: 4}).attr("myid");
+		window.location.href = "/surveys/showreport/" + $(this).stairUp({level: 4}).attr("myid");
 //	window.open('http://database.padinet.com:4000/survey/'+$(this).stairUp({level: 4}).attr("myid"));
 	});
 });

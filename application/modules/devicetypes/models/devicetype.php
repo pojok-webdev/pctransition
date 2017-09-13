@@ -1,41 +1,52 @@
 <?php
-class Devicetype extends DataMapper{
+class Devicetype extends CI_Model{
 	var $has_many = array('device');
 	function __construct(){
 		parent::__construct();
 	}
 	function add($params){
-		$obj = new Devicetype();
-		foreach($params as $key=>$val){
-			$obj->$key = $val;
+		$keys = array();
+		$vals = array();
+		$sql = "";
+		foreach($params as $key => $val ){
+			array_push($keys,$key);
+			array_push($vals,$val);
 		}
-		$obj->save();
-		return $this->db->insert_id();
+		$keystring = "('" . implode("','",$keys) . "')";
+		$valstring = "('" . implode("','",$vals) . "')";
+		$sql = "insert into devicetypes ";
+		$sql.= " " . $keystring . " " ;
+		$sql.= " values " ;
+		$sql.= " " . $valstring . " " ;
+		$que = $this->ci->db->query($sql);
+		return $this->ci->db->insert_id();
 	}
-	function get_combo_data($active='1',$ids=null){
+	function get_combo_data($first_data="Pilihlah",$active='1',$ids=null){
+		$ci = & get_instance();
 		$out = array();
-		$objs = new Devicetype();
-		if(!empty($active)){
-			if($ids==null){
-				$objs->where('active',$active)->get();
-			}else{
-				$objs->where('active',$active)->where_in('id',$ids)->get();
-			}
-		}else{
-			$objs->get();
+		if($first_data!=''){
+			$out[0] = $first_data;
 		}
-		foreach($objs as $obj){
-			$out[$obj->id] = $obj->name;
+		$sql = "select * from devicetypes ";
+		$sql.= "where active='".$active."' ";
+		if($ids!=null){
+			$sql.= "and id in (".$ids.") ";
+		}
+		$sql.= "order by name asc ";
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		foreach ($res as $client){
+			$out[$client->id] = $client->name;
 		}
 		return $out;
 	}
 	function populate($active='1'){
-		$obj = new Devicetype();
+		$sql = "select * from devicetypes ";
 		if(!empty($active)){
-			$obj->where('active',$active)->get();
-		}else{
-			$obj->get();
+			$sql.= "where active='".$active."' ";
 		}
-		return $obj;
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
+		return $res;
 	}
 }

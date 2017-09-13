@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php $this->load->view('adm/head');?>
-<script type='text/javascript' src='<?php echo base_url();?>js/aquarius/Sales/surveys/surveys.js'></script>
+<script type='text/javascript' src='/js/aquarius/Sales/surveys/surveys.js'></script>
 	<body>
 	<?php $this->load->view('adm/header');?>
 	<?php $this->load->view('adm/menu');?>
@@ -20,7 +20,7 @@
 					<div class="head clearfix">
 						<div class="isw-grid"></div>
 						<h1>Surveys</h1>
-						<?php if(Common::member_of($this->ionuser->id,'Sales')){?>
+						<?php if($common->member_of($this->ionuser->id,'Sales')){?>
 						<ul class="buttons">
 						<li><span class="isw-plus" id="permintaansurvey"></span></li>
 						</ul>
@@ -73,7 +73,7 @@
 													$direction = 'Relokasi';
 													break;
 													default:
-													$direction = '';
+													$direction = 'WWWW';
 													break;
 											}
 									?>
@@ -85,7 +85,7 @@
 									<span class="tohumandate"><?php echo $obj->execution_date;?></span>
 									<span class="tohumanhourminute"><?php echo $obj->execution_date;?></span>
 									</td>
-									<td><?php echo Survey_surveyor::get_names_by_survey_id($obj->survey_request_id);?></td>
+									<td><?php echo $obj->surveyors;?></td>
 									<td><?php echo $direction;?></td>
 									<td class="updatable" fieldName="status"><?php echo $status;?></td>
 									<td>

@@ -1,29 +1,35 @@
 <?php
-class Group extends DataMapper{
+class Group extends CI_Model{
 	var $has_many = array('user','group_preference');
-	function __construct(){
+	var $ci;
+	var $id;
+	function __construct($id = NULL){
 		parent::__construct();
+		$this->ci = & get_instance();
+		$this->id = $id;
 	}
-	
 	function get_groups(){
-		$groups = new Group();
-		$groups->get();
+		$sql = "select * from groups ";
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
 		$out = array();
-		foreach ($groups as $group){
+		foreach ($res as $group){
 			$out[$group->id] = $group->name;
 		}
 		return $out;
 	}
-	
-	function get_groupname($id){
-		$group = new Group();
-		$group->where('id',$id)->get();
-		return $group->name;
+	function get_group_name($id){
+		$sql = "select * from groups ";
+		$sql.= "where id=".$this->id;
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
+		return $res[0]->name;
 	}
-	
 	function populate(){
-		$obj = new Group();
-		$obj->get();
-		return $obj;
+		$sql = "select * from groups ";
+		$sql.= "where id=".$this->id;
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
+		return $res;
 	}
 }

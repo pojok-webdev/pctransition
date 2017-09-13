@@ -275,7 +275,8 @@ class Common {
 		return $array[2] . $separator . $array[1] . $separator . $array[0] . ' ' . $date_array[1];
 	}
 	function member_of($id,$group){
-		if(User::get_group_name($id)==$group){
+		$user = new User($id);
+		if($user->get_group_name($id)==$group){
 			return true;
 		}
 		return false;

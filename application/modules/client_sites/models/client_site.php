@@ -1,7 +1,15 @@
 <?php
 class Client_site extends CI_Model{
 	var $ci;
-/*	var $has_one = array('survey_request','install_site','client','maintenance','branch','install_request','ticket');
+/*	var $has_one = array(
+		'survey_request',
+		'install_site',
+		'client',
+		'maintenance',
+		'branch',
+		'install_request',
+		'ticket'
+	);
 	var $has_many = array(
 		'fb',
 		'fbpic',
@@ -147,14 +155,14 @@ class Client_site extends CI_Model{
 	function get_obj_by_id(){
 		$sql = "select a.id,a.address,b.name,a.service_id,d.name service,a.city,a.pic_name,";
 		$sql.= "a.pic_position,a.pic_email,a.pic_phone_area,a.pic_phone,e.username,";
-		$sql.= "integer_part,group_concat(c.branch_id) branch from client_sites a ";
+		$sql.= "integer_part,d.integer_part, group_concat(c.branch_id) branch from client_sites a ";
 		$sql.= "left outer join clients b on b.id=a.client_id ";
 		$sql.= "left outer join branches_client_sites c on c.client_site_id=a.id ";
-		$sql.= "left outer join services d on d.id=a.service_id ";
+		$sql.= "left outer join clientservices d on a.id=d.client_site_id  ";
 		$sql.= "left outer join users e on e.id=b.sale_id ";
 		$sql.= "where a.id='".$this->id."' ";
 		$sql.= "group by a.id,a.address,b.name,a.service_id,d.name,a.city,a.pic_name,";
-		$sql.= "a.pic_position,a.pic_email,a.pic_phone_area,a.pic_phone,e.username,integer_part ";
+		$sql.= "a.pic_position,a.pic_email,a.pic_phone_area,a.pic_phone,e.username,integer_part,d.integer_part ";
 		$que = $this->ci->db->query($sql);
 		return $que->result();
 	}

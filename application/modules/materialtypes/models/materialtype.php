@@ -1,42 +1,49 @@
 <?php
-class Materialtype extends DataMapper{
+class Materialtype extends CI_Model{
 	var $has_many = array('material');
 	function __construct(){
 		parent::__construct();
 	}
-	
 	function add($params){
-		$obj = new Materialtype();
-		foreach($params as $key=>$val){
-			$obj->$key = $val;
+		$keys = array();
+		$vals = array();
+		$sql = "";
+		foreach($params as $key => $val ){
+			array_push($keys,$key);
+			array_push($vals,$val);
 		}
-		$obj->save();
-		return mysql_insert_id();
+		$keystring = "('" . implode("','",$keys) . "')";
+		$valstring = "('" . implode("','",$vals) . "')";
+		$sql = "insert into materialtypes ";
+		$sql.= " " . $keystring . " " ;
+		$sql.= " values " ;
+		$sql.= " " . $valstring . " " ;
+		$que = $this->ci->db->query($sql);
+		return $this->ci->db->insert_id();
 	}
-	
-	
-	function get_combo_data($active='1'){
+	function get_combo_data($first_data="Pilihlah",$active='1'){
+		$ci = & get_instance();
 		$out = array();
-		$objs = new Materialtype();
-		if(!empty($active)){
-			$objs->where('active',$active)->order_by('name','asc')->get();
-		}else{
-			$objs->order_by('name','asc')->get();
+		if($first_data!=''){
+			$out[0] = $first_data;
 		}
-		foreach($objs as $obj){
-			$out[$obj->id] = $obj->name;
+		$sql = "select * from materialtypes ";
+		$sql.= "where active='".$active."' ";
+		$sql.= "order by name asc ";
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		foreach ($res as $client){
+			$out[$client->id] = $client->name;
 		}
 		return $out;
 	}
-	
 	function populate($active='1'){
-		$obj = new Materialtype();
+		$sql = "select * from materialtypes ";
 		if(!empty($active)){
-			$obj->where('active',$active)->get()->order_by('name','asc');
-		}else{
-			$obj->get()->order_by('name','asc');
+			$sql.= "where active='".$active."' ";
 		}
-		return $obj;
-		
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
+		return $res;
 	}
 }

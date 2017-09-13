@@ -39,7 +39,7 @@ class Client_sites extends CI_Controller{
 	}
 	function check_login(){
 		if(!$this->ion_auth->logged_in()){
-			redirect('/index.php/adm/login');
+			redirect('/adm/login');
 		}
 	}
 	function feedData(){

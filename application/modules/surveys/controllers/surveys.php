@@ -7,7 +7,7 @@ class Surveys extends CI_Controller {
 		$this->data = array();
 		if ($this->ion_auth->logged_in()) {
 			$this->ionuser = $this->ion_auth->user()->row();
-			$this->data['user'] = User::get_user_by_id($this->ionuser->id);
+			//$this->data['user'] = User::get_user_by_id($this->ionuser->id);
 			$this->load->helper('user');
 			$this->load->helper('survey');
 			$this->load->helper("branches");
@@ -40,38 +40,43 @@ class Surveys extends CI_Controller {
 		$sessdata = array("pending_url"=>base_url()."surveys/edit/".$this->uri->segment(3));
 		$this->session->set_userdata($sessdata);
 		$this->common->check_login();
+		$common = new Common();
 		$myuser = $this->ion_auth->user()->row();
 		$myuser->id;
 		$id = $this->uri->segment(3);
+		$survey = new Survey($id);
 		$keyvalpaired = false;
-		$obj = Survey_site::get_obj_by_id($id);
-		$pics = new Pic();
-		$pics->where("client_id",$obj->client_id)->get();
-		$sitepics = new Site_pic();
-		$sitepics->where("client_id",$obj->client_id)->get();
+		//$obj = Survey_site::get_obj_by_id($id);
+		$this->data['obj'] = $survey->get_survey_site_by_id();
+//		$pics = new Pic();
+//		$pics->where("client_id",$obj->client_id)->get();
+		$pics = $survey->get_pics();
+		$sitepics = $survey->get_site_pics();
+//		$sitepics = new Site_pic();
+//		$sitepics->where("client_id",$obj->client_id)->get();
 		$this->data['pics'] = $pics;
 		$this->data['sitepics'] = $sitepics;
-		$this->data['positions'] = Position::get_combo_data();
-		$this->data['clients'] = Client::get_combo_data();
+		$this->data['positions'] = get_position_combodata();//Position::get_combo_data();
+		$this->data['clients'] = get_client_combo_data();
 		$this->data['menuFeed'] = 'survey';
-		$this->data['obj'] = $obj;
-		$this->data['hours'] = Common::gethours();
-		$this->data['minutes'] = Common::getminutes();
-		$this->data['services'] = Service::get_combo_data(true,"Pilihlah");
-		$this->data['branches'] = Branch::get_combo_data();
+		//$this->data['obj'] = $obj;
+		$this->data['hours'] = $common->gethours();
+		$this->data['minutes'] = $common->getminutes();
+		$this->data['services'] = get_service_combo_data(true,"Pilihlah");
+		$this->data['branches'] = get_branch_combo_data();
 		$this->data['hasilsurvey'] = array(
 			0 => 'Belum ada kesimpulan',
 			1 => 'Bisa dilaksanakan',
 			2 => 'Bisa dilaksanakan dengan syarat',
 			3 => 'Tidak dapat dilaksanakan'
 		);
-		$this->data['aps'] = PAP::get_combo_data();
-		$this->data['device_type'] = Devicetype::get_combo_data();
-		$this->data['material_type'] = Materialtype::get_combo_data();
-		$this->data['btstowers'] = Pbtstower::get_combo_data('Pilihlah');
-		$this->data['clients'] = Client::get_combo_data();
+		$this->data['aps'] = get_pap_combo_data();
+		$this->data['device_type'] = get_devicetype_combo_data();
+		$this->data['material_type'] = get_materialtype_combo_data();
+		$this->data['btstowers'] = get_pbtstower_combo_data('Pilihlah');
+		$this->data['clients'] = get_client_combo_data();
 		$this->data['direction'] = array('0' => 'Pelanggan baru', '1' => 'Site baru', '2' => 'Relokasi');
-		$this->data['devices'] = Device::get_combo_data();
+		$this->data['devices'] = get_device_combo_data();
 		$this->data['sites'] = Survey_site::get_other_sites($id);
 		$this->data['sender'] = 'survey_edit';
 		$this->data['surveypackages'] = Surveypackage::populate();
@@ -112,6 +117,7 @@ class Surveys extends CI_Controller {
 	}
 	function index() {
 		$this->common->check_login();
+		$this->data["common"] = new Common();
 		$arr = array();
 		$users = getsubordinates($this->ionuser->id,$arr);
 		$this->data['menuFeed'] = 'survey';
@@ -230,7 +236,8 @@ class Surveys extends CI_Controller {
 		echo $obj->check_last_query();
 	}
 	function feedData() {
-		$objs = Survey_site::populate();
+		$survey_site = new Survey_site();
+		$objs = $survey_site->populate();
 		$rows = array();
 		foreach ($objs as $obj) {
 			$vals = array();

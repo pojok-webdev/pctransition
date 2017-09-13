@@ -4,9 +4,11 @@ class Survey_site extends CI_Model{
 	var $has_one = array('survey_request','client_site','branch');
 	var $has_many = array('survey_image','survey_material','survey_device','survey_bts_distance','survey_site_distance','survey_resume','survey_ba');
 	var $ci;
-	function __construct(){
+	var $id;
+	function __construct($id = null){
 		parent::__construct();
 		$this->ci = & get_instance();
+		$this->id = $id;
 	}	
 	function get_survey_sites($survey_id){
 		$sql = "select * from survey_sites where survey_request_id=".$survey_id." ";
@@ -63,7 +65,12 @@ class Survey_site extends CI_Model{
 		$obj->where('id',$id)->get();
 		return $obj;
 	}
-	
+	function get_survey_site_by_id(){
+		$sql = "select * from survey_sites ";
+		$sql.= "where survey_id=".$this->id;
+		$que = $this->ci->db->query($sql);
+		return $que->result();
+	}
 	function get_other_sites($id){
 		$objs = new Survey_site();
 		$objs->where_related('survey_request/survey_site','id !=',$id)->get();
@@ -78,9 +85,14 @@ class Survey_site extends CI_Model{
 		$obj = new Survey_site();
 
 		if(is_null($user_id)){
-			$obj->where('active',$active)->get();
+//			$obj->where('active',$active)->get();
+			$sql = "select * from survey_sites ";
+			$sql.= "where active='1' ";
 		}
 		else{
+			$sql = "select * from survey_sites a ";
+			$sql.= "left outer join client_sites b on b.id=a.survey_site_id ";
+			$sql.= "where active='1' ";
 			$obj->include_related("client_site/client/user","username");
 			$obj->include_related("client_site/client","name");
 			$obj->include_related("survey_request","create_date");

@@ -181,7 +181,7 @@
 								</ul>
 							</div>
 							<div class="block-fluid users" id="listpicsite">
-								<?php foreach($obj->client_site->site_pic as $pic){?>
+								<?php foreach($site_pic as $pic){?>
 								<div class="item clearfix sitepiclists" picid=<?php echo $pic->id;?>>
 									<div class="infopic">
 										<div>

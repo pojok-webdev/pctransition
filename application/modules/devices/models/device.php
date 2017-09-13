@@ -8,51 +8,86 @@ class Device extends CI_Model{
 		$this->ci = & get_instance();
 	}
 	function add($params){
-		$obj = new Device();
-		foreach($params as $key=>$val){
-			$obj->$key = $val;
+		$keys = array();
+		$vals = array();
+		$sql = "";
+		foreach($params as $key => $val ){
+			array_push($keys,$key);
+			array_push($vals,$val);
 		}
-		$obj->save();
-		return mysql_insert_id();
+		$keystring = "('" . implode("','",$keys) . "')";
+		$valstring = "('" . implode("','",$vals) . "')";
+		$sql = "insert into devices ";
+		$sql.= " " . $keystring . " " ;
+		$sql.= " values " ;
+		$sql.= " " . $valstring . " " ;
+		$que = $this->ci->db->query($sql);
+		return $this->ci->db->insert_id();
 	}
 	function edit($params){
-		$obj = new Device();
-		$obj->where('id',$params['id'])->update($params);
-		return $obj->check_last_query();
-	}
-	function populate(){
-		$obj = new Device();
-		$obj->where('active','1')->get();
-		return $obj;
-	}
-	function get_combo_data($devicetype = null){
-		$objs = new Device();
-		if($devicetype!=null){
-			$objs->where('active','1')->where_in('devicetype_id',$devicetype)->order_by('name','asc')->get();
-		}else{
-			$objs->where('active','1')->order_by('name','asc')->get();
+		$arr = array();
+		foreach($params as $key=>$val){
+			array_push($arr,"".$key."='".$val."'");
 		}
-		$out = array();
-		foreach($objs as $obj){
-			$out[$obj->id] = $obj->name;
+		$sql = "update devices ";
+		$sql.= "set " . implode(",",$arr) . "";
+		$sql.= "where ";
+		$sql.= "id='".$params["id"]."'";
+		$ci = & get_instance();
+		$ci->db->query($sql);
+	}
+	function populate($active='1'){
+		$sql = "select * from devicetypes ";
+		if(!empty($active)){
+			$sql.= "where active='".$active."' ";
 		}
-		return $out;
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
+		return $res;
 	}
-	function remove($id){
-		$obj = new Device();
-		$obj->where('id',$id)->get();
-		$obj->delete();
-		return $obj->check_last_query();
-	}
-	function get_combo_data_device($deviceid,$first_data=''){
+	function get_combo_data($first_data="Pilihlah",$devicetype = null){
+		$ci = & get_instance();
 		$out = array();
 		if($first_data!=''){
 			$out[0] = $first_data;
 		}
-		$devices = new Device();
-		$devices->where('active','1')->where('devicetype_id',$deviceid)->get();
-		foreach ($devices as $device){
-			$out[$device->id] = $device->name;
+		$sql = "select * from devices ";
+		$sql.= "where active='".$active."' ";
+		if($devicetype!=null){
+			$sql.="and devicetype='".$devicetype."' ";
+		}
+		$sql.= "order by name asc ";
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		foreach ($res as $client){
+			$out[$client->id] = $client->name;
+		}
+		return $out;
+	}
+	function remove($id){
+		$sql = "delete from devices ";
+		$sql.= "where id=".$id;
+		$ci = & get_instance();
+		$ci->db->query($sql);
+		return $sql;
+	}
+	function get_combo_data_device($deviceid,$first_data=''){
+		$ci = & get_instance();
+		$out = array();
+		if($first_data!=''){
+			$out[0] = $first_data;
+		}
+		$sql = "select * from devices ";
+		$sql.= "where active='1' ";
+		$sql.= "and devicetypeid=".$deviceid." ";
+		if($devicetype!=null){
+			$sql.="and devicetype='".$devicetype."' ";
+		}
+		$sql.= "order by name asc ";
+		$que = $ci->db->query($sql);
+		$res = $que->result();
+		foreach ($res as $client){
+			$out[$client->id] = $client->name;
 		}
 		return $out;
 	}
