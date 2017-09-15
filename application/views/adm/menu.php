@@ -28,7 +28,7 @@
 			</li>
 		</ul>
 		<div class="info">
-			<span id='lastvisit'>Your last visit: <?php echo App_log::get_lastvisit($this->session->userdata['username']);?></span>
+			<span id='lastvisit'>Your last visit: <?php echo $lastvisit;?></span>
 		</div>
 	</div>
 	<ul class="navigation">

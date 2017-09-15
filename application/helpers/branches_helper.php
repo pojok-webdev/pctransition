@@ -9,8 +9,9 @@ function getbrancharray(){
 	return $out;
 }
 function getbranch($id){
-	$obj = new Branch();
-	$obj->where("id",$id)->get();
+	$obj = new Branch($id);
+	$out = $obj->getbranch();
+	//$obj->where("id",$id)->get();
 	//echo $obj->check_last_query();
-	return $obj->name;
+	return $out->name;
 }

@@ -337,4 +337,20 @@ class User extends CI_Model{
 		$this->ci->db->query($sql);
 		return $sql;
 	}
+	function get_current_id(){
+		return $user_id = $this->session->userdata('user_id');
+	}
+	function isDecessor($decessor_id,$ancestor_id){
+		$sql = "select a.id userid,c.id spvid from users a ";
+		$sql.= "left outer join supervisors_users b on b.supervisor_id=a.id ";
+		$sql.= "left outer join users c on c.id=b.user_id ";
+		$sql.= "where a.id=".$ancestor_id." ";
+		$sql.= "and c.id=".$decessor_id." ";
+		$ci = & get_instance();
+		$que = $ci->db->query($sql);
+		if($que->num_rows()>0){
+			return true;
+		}
+		return false;
+	}
 }

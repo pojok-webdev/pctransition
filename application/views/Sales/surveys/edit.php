@@ -21,12 +21,12 @@
 			</ul>
 			<?php $this->load->view('adm/buttons');?>
 		</div>
-		<div class="workplace" id="workplace" client_id="<?php echo $obj->id;?>">
-			<input type="hidden" name="client_id" value="<?php echo $obj->client_id;?>" class="surveyrequest surveysite clientsite inp_pic ">
-			<input type="hidden" id="client_site_id" name="id" value="<?php echo $obj->client_site_id;?>" class="clientsite ">
-			<input type="hidden" id="survey_site_id" name="id" value="<?php echo $obj->id;?>" class="surveysite ">
+		<div class="workplace" id="workplace" client_id="<?php echo $id;?>">
+			<input type="hidden" name="client_id" value="<?php echo $id;?>" class="surveyrequest surveysite clientsite inp_pic ">
+			<input type="hidden" id="client_site_id" name="id" value="<?php echo $clientsiteid;?>" class="clientsite ">
+			<input type="hidden" id="survey_site_id" name="id" value="<?php echo $surveysiteid;?>" class="surveysite ">
 			<input type="hidden" name="sale_id" value="<?php echo $this->ionuser->id;?>" class="surveysite clientsite ">
-			<input type="hidden" name="id" id="survey_request_id" value="<?php echo $obj->survey_request_id;?>" class="surveyrequest">
+			<input type="hidden" name="id" id="survey_request_id" value="<?php echo $surveyrequestid;?>" class="surveyrequest">
 			<input type="hidden" name="createuser" value="<?php echo $this->ionuser->username;?>" class="surveysite clientsite surveyrequest">
 			<div class="block-fluid without-head">
 				<div class="toolbar clearfix">
@@ -44,14 +44,14 @@
 					<div class="block-fluid without-head">
 						<div class="row-form clearfix">
 							<div class="span3" id="tslabel">
-								TS Cabang Yang menangani <?php echo $obj->client_site->branches->name;?>
+								TS Cabang Yang menangani <?php echo $areabranches;?>
 							</div>
 							<div class="span3">
 								<?php for($i=1;$i<=count($branches);$i++){?>
 									<?php
 										$tocheck = true;
-										foreach($obj->client_site->branch as $br){
-											if($i===$br->id){
+										foreach($branches as $br=>$branch){
+											if($i===$br){
 												$tocheck = false;
 											}else{
 											}
@@ -101,7 +101,7 @@
 						<div class="row-form clearfix">
 							<div class="span3">Nama</div>
 							<div class="span9">
-								<?php echo form_input('client_id',$obj->client_site->client->name,'id="client_id" readonly');?>
+								<?php echo form_input('client_id',$clientname,'id="client_id" readonly');?>
 							</div>
 						</div>
 						<div class="row-form clearfix">
@@ -115,7 +115,7 @@
 								</ul>
 							</div>
 							<div class="block-fluid users" id="listusers">
-								<?php foreach($obj->client_site->client->pic as $pic){?>
+								<?php foreach($pics as $pic){?>
 								<div class="item clearfix piclists" picid=<?php echo $pic->id;?>>
 									<div class="infopic">
 										<div>
@@ -135,13 +135,13 @@
 						<div class="row-form clearfix">
 							<div class="span3">Alamat</div>
 							<div class="span9">
-								<?php echo form_input('address',$obj->address,'id="address" readonly');?>
+								<?php echo form_input('address',$address,'id="address" readonly');?>
 							</div>
 						</div>
 						<div class="row-form clearfix">
 							<div class="span3">Layanan</div>
 							<div class="span9">
-								<?php echo form_dropdown("service_id",$services,$obj->service_id,"id='service_id' class='surveyrequest surveysite clientsite' type='selectid'");?>
+								<?php echo form_dropdown("service_id",$services,$surveyobj->service_id,"id='service_id' class='surveyrequest surveysite clientsite' type='selectid'");?>
 							</div>
 						</div>
 					</div>
@@ -154,19 +154,19 @@
 						<div class="row-form clearfix">
 							<div class="span3">Instalasi di Cabang PadiNET</div>
 							<div class="span9">
-								<?php echo form_dropdown('install_area',$branches,$obj->client_site->branch->id,'id="install_area" class="surveyrequest clientsite" type="selectid"');?>
+								<?php echo form_dropdown('install_area',$branches,$surveyobj->branch_id,'id="install_area" class="surveyrequest clientsite" type="selectid"');?>
 							</div>
 						</div>
 						<div class="row-form clearfix">
 							<div class="span3">Alamat Cabang</div>
 							<div class="span9">
-								<?php echo form_input('address',$obj->address,'id="site_address"  class="surveyrequest surveysite clientsite emptycheck"');?>
+								<?php echo form_input('address',$surveyobj->address,'id="site_address"  class="surveyrequest surveysite clientsite emptycheck"');?>
 							</div>
 						</div>
 						<div class="row-form clearfix">
 							<div class="span3">Kota</div>
 							<div class="span9">
-								<?php echo form_input('city',$obj->city,'id="site_city"  class="surveyrequest surveysite clientsite emptycheck"');?>
+								<?php echo form_input('city',$surveyobj->city,'id="site_city"  class="surveyrequest surveysite clientsite emptycheck"');?>
 							</div>
 						</div>
 						<!--start of pic cabang-->
@@ -181,7 +181,7 @@
 								</ul>
 							</div>
 							<div class="block-fluid users" id="listpicsite">
-								<?php foreach($site_pic as $pic){?>
+								<?php foreach($sitepics as $pic){?>
 								<div class="item clearfix sitepiclists" picid=<?php echo $pic->id;?>>
 									<div class="infopic">
 										<div>
@@ -200,7 +200,7 @@
 						</div>
 						<!--end of pic cabang-->
 						<!--PIC end-->
-						<?php $dtpart = Common::longsql_to_datepart($obj->survey_date);?>
+						<?php $dtpart = $common->longsql_to_datepart($surveyobj->survey_date);?>
 						<div class="row-form clearfix">
 							<div class="span3">Tgl Survey</div>
 							<div class="span4">
@@ -217,7 +217,7 @@
 						<div class="row-form clearfix">
 							<div class="span3">Keterangan</div>
 							<div class="span9">
-								<textarea name="description" id="resume" class="surveyrequest surveysite myeditor" type="textarea"><?php echo $obj->description?></textarea>
+								<textarea name="description" id="resume" class="surveyrequest surveysite myeditor" type="textarea"><?php echo $surveyobj->description?></textarea>
 							</div>
 						</div>
 					</div>

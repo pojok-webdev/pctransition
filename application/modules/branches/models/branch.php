@@ -7,9 +7,17 @@ class Branch extends CI_Model{
 	'backbone','survey_site');
 	*/
 	public $ci;
-	function __construct(){
+	var $id;
+	function __construct($id = null){
 		parent::__construct();
 		$this->ci = & get_instance();
+		$this->id = $id;
+	}
+	function getbranch(){
+		$sql = "select * from branches where id=".$this->id."";
+		$ci = & get_instance();
+		$que = $ci->db->query($sql);
+		return $que->result()[0];
 	}
 	function get_branches(){
 		$sql = "select id,name from branches ";

@@ -768,7 +768,8 @@ function login(){
 function logout(){
 	echo "logout";
 	$this->ion_auth->logout();
-	App_log::create_log('Logout');
+	$applog = new App_log();
+	$applog->create_log('Logout');
 	redirect(base_url() . "adm/login");
 }
 function material_remove(){

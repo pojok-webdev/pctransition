@@ -52,7 +52,7 @@ class Device extends CI_Model{
 			$out[0] = $first_data;
 		}
 		$sql = "select * from devices ";
-		$sql.= "where active='".$active."' ";
+		$sql.= "where active='1' ";
 		if($devicetype!=null){
 			$sql.="and devicetype='".$devicetype."' ";
 		}

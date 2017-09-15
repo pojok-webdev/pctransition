@@ -106,6 +106,10 @@ class Common {
 		return false;
 	}
 	function IsDecessor($decessor_id,$ancestor_id){
+		$user = new User();
+		if($user->isDecessor($decessor_id,$ancestor_id)){
+			return true;
+		}
 		$decessor = new User();
 		$decessor->where('id',$decessor_id)->get();
 		if($decessor->supervisor->id==$ancestor_id){

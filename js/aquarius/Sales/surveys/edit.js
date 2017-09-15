@@ -12,25 +12,26 @@ $(document).ready(function(){
 	console.log(year+"-"+month+"-"+day+" "+hour+":"+minute);
 	$('#survey_date').getdate().addhour($('#filterhour1')).addminute($('#filterminute1'));
 	$('#survey_save').click(function(){
+		console.log("save button clicked");
 		$('.surveyrequest').makekeyvalparam();
 		console.log($('.surveyrequest').attr("keyval"));
-		console.log("save clicked");
 		var tsbranchok = false,salesbranchok = false;
 		$(".tsbranch").each(function(){
 			if($(".tsbranch").is(":checked")){
 				tsbranchok = true;
-			}			
+			}
 		});
 		$(".salesbranch").each(function(){
 			if($(".salesbranch").is(":checked")){
 				salesbranchok = true;
-			}			
+			}
 		});
-
+		console.log("you clicked save button");
+		
 		if(tsbranchok && salesbranchok){
 			if($(this).checkEmpty({className:"emptycheck"})){
 				$.ajax({
-					url:thisdomain+'surveys/update',
+					url:'/surveys/update',
 					data:JSON.parse('{'+$('.surveyrequest').attr('keyval')+'}'),
 					type:'post',
 					async:false
@@ -46,13 +47,19 @@ $(document).ready(function(){
 					console.log("Keyval : "+$('.clientsite').attr('keyval'));
 					console.log("survey_request_id : "+survey_request_id);
 					$.ajax({
-						url:thisdomain+"reminders/save",
+						url:"/reminders/save",
 						data:{period:"0",perioddetail:year+"-"+month+"-"+day+" "+hour+":"+minute,recipient:"puji@padi.net.id"},
 						type:"post",
 						async:false
+					})
+					.done(function(res){
+						console.log("Reminder save success",res);
+					})
+					.fail(function(err){
+						console.log("Reminder save error",err);
 					});
 					$.ajax({
-						url:thisdomain+'client_sites/update',
+						url:'/client_sites/update',
 						data:JSON.parse('{"survey_request_id":"'+survey_request_id+'",'+$('.clientsite').attr('keyval')+'}'),
 						type:'post',
 						async:false
@@ -61,14 +68,14 @@ $(document).ready(function(){
 						console.log("Query : "+client_site_query);
 						console.log("survey_site : "+$('.surveysite').attr("keyval"));
 						$.ajax({
-							url:thisdomain+'survey_sites/update',
+							url:'/survey_sites/update',
 							data:JSON.parse('{"survey_request_id":"'+survey_request_id+'",'+$('.surveysite').attr('keyval')+'}'),
 							type:'post',
 							async:false
 						}).done(function(survey_site_query){
 							console.log("sukses");
 							console.log(survey_site_query);
-							$.post(thisdomain+'clients/update',{id:$('#client_id').val(),status:'3'}).done(function(datax){
+							$.post('/clients/update',{id:$('#client_id').val(),status:'3'}).done(function(datax){
 									var str = "",salestr = "";
 									$("input.tsbranch:checked").each(function(){
 										console.log("check",$(this).val());
@@ -81,46 +88,40 @@ $(document).ready(function(){
 									console.log("BRANCHES",str);
 									console.log("CLIENTID",$("#clientid").val());
 									$.ajax({
-										url:thisdomain+"client_sites/savebranch",
+										url:"/client_sites/savebranch",
 										data:{client_site_id:$("#client_site_id").val(),branches:str},
 										type:"post"
 									})
 									.done(function(data){
 										console.log("client id",$("#clientid").val());
 										console.log("client updated",data);
-									//	window.location.href = thisdomain + 'surveys';
-										
-										
-													$.ajax({
-														url:thisdomain+"client_sites/savesalesbranch",
-														data:{client_site_id:$("#client_site_id").val(),branches:salestr},
-														type:"post"
-													})
-													.done(function(data){
-														console.log("client id",$("#clientid").val());
-														console.log("client updated",data);
-														window.location.href = thisdomain + 'surveys';
-													})
-													.fail(function(err){
-														console.log("TIDAK DAPAT MENYIMPOAN sales BRANCH",err);
-													});
-										
-										
-										
+									//	window.location.href = '/surveys';
+										$.ajax({
+											url:"/client_sites/savesalesbranch",
+											data:{client_site_id:$("#client_site_id").val(),branches:salestr},
+											type:"post"
+										})
+										.done(function(data){
+											console.log("client id",$("#clientid").val());
+											console.log("client updated",data);
+											window.location.href = '/surveys';
+										})
+										.fail(function(err){
+											console.log("TIDAK DAPAT MENYIMPOAN sales BRANCH",err);
+										});
 									})
 									.fail(function(err){
 										console.log("TIDAK DAPAT MENYIMPOAN BRANCH",err);
 									});
-
-
 							});
-							//window.location.href = thisdomain+'surveys';
+							//window.location.href = '/surveys';
 						}).fail(function(){
 							alert('Survey Site Failed, Tidak dapat menyimpan, silakan hubungi Developer');
 						});
 					}).fail();
-				}).fail(function(){
-					alert('Tidak dapat mengupdate Pengajuan Survey, silakan hubungi Developer');
+				}).fail(function(err){
+					console.log("Error save survey",err);
+					alert("Error menyimpan");
 				});
 			}else{
 				$(this).showModal({message:"Pastikan semua field terisi"});
@@ -130,7 +131,7 @@ $(document).ready(function(){
 		}
 	});
 	$('#close_form').click(function(){
-		window.location.href = thisdomain+'adm/surveys';
+		window.location.href = '/adm/surveys';
 	});
 	$("#btnAddPic").click(function(){
 		$("#savePic").show();
@@ -142,7 +143,7 @@ $(document).ready(function(){
 	$("#savePic").click(function(){
 		$(".inp_pic").makekeyvalparam();
 		$.ajax({
-			url:thisdomain+"pics/save",
+			url:"/pics/save",
 			data:JSON.parse('{'+$(".inp_pic").attr('keyval')+'}'),
 			type:"post"
 		}).done(function(data){
@@ -156,7 +157,7 @@ $(document).ready(function(){
 				thistr.addClass("selected");
 				console.log(thistr.attr("picid"));
 				$.ajax({
-					url:thisdomain+"pics/getbyid",
+					url:"/pics/getbyid",
 					data:{id:thistr.attr("picid")},
 					type:"post",
 					dataType:"json"
@@ -196,7 +197,7 @@ $(document).ready(function(){
 	$("#hapusPic").click(function(){
 		console.log($(".piclists.selected").attr("picid"));
 		$.ajax({
-			url:thisdomain+"pics/remove/",
+			url:"/pics/remove/",
 			data:{id:$(".piclists.selected").attr("picid")},
 			type:"post"
 		}).done(function(data){
@@ -220,7 +221,7 @@ $(document).ready(function(){
 		thistr.addClass("selected");
 		//console.log(thistr.attr("picid"));
 		$.ajax({
-			url:thisdomain+"pics/getbyid",
+			url:"/pics/getbyid",
 			data:{id:thistr.attr("picid")},
 			type:"post",
 			dataType:"json"
@@ -243,7 +244,7 @@ $(document).ready(function(){
 	$("#updatePic").click(function(){
 		$(".inp_pic").makekeyvalparam();
 		$.ajax({
-			url:thisdomain+"pics/update",
+			url:"/pics/update",
 			data:JSON.parse('{"id":"'+$(".piclists.selected").attr("picid")+'",'+$(".inp_pic").attr('keyval')+'}'),
 			type:"post"
 		}).done(function(data){
@@ -259,8 +260,6 @@ $(document).ready(function(){
 				$("#hapusPic").show();
 				$("#dConfirm").modal();
 			});
-
-
 			$(".edit_pic").bind("click",function(){
 				$("#savePic").hide();
 				$("#savePicSite").hide();
@@ -274,7 +273,7 @@ $(document).ready(function(){
 				thistr.addClass("selected");
 				console.log("after edit PICID"+thistr.attr("picid"));
 				$.ajax({
-					url:thisdomain+"pics/getbyid",
+					url:"/pics/getbyid",
 					data:{id:thistr.attr("picid")},
 					type:"post",
 					dataType:"json"
@@ -313,7 +312,7 @@ $(document).ready(function(){
 	$("#savePicSite").click(function(){
 		$(".inp_pic").makekeyvalparam();
 		$.ajax({
-			url:thisdomain+"site_pics/save",
+			url:"/site_pics/save",
 			data:JSON.parse('{'+$(".inp_pic").attr('keyval')+'}'),
 			type:"post"
 		}).done(function(data){
@@ -327,7 +326,7 @@ $(document).ready(function(){
 				thistr.addClass("selected");
 				console.log(thistr.attr("picid"));
 				$.ajax({
-					url:thisdomain+"site_pics/getbyid",
+					url:"/site_pics/getbyid",
 					data:{id:thistr.attr("picid")},
 					type:"post",
 					dataType:"json"
@@ -370,7 +369,7 @@ $(document).ready(function(){
 		thistr.addClass("selected");
 		//console.log(thistr.attr("picid"));
 		$.ajax({
-			url:thisdomain+"site_pics/getbyid",
+			url:"/site_pics/getbyid",
 			data:{id:thistr.attr("picid")},
 			type:"post",
 			dataType:"json"
@@ -395,7 +394,7 @@ $(document).ready(function(){
 //		console.log($(".inp_pic").attr("keyval"));
 		console.log("ID : " +$(".sitepiclists.selected").attr("picid"));
 		$.ajax({
-			url:thisdomain+"site_pics/update",
+			url:"/site_pics/update",
 			data:JSON.parse('{"id":"'+$(".sitepiclists.selected").attr("picid")+'",'+$(".inp_pic").attr('keyval')+'}'),
 			type:"post"
 		}).done(function(data){
@@ -426,7 +425,7 @@ $(document).ready(function(){
 				thistr.addClass("selected");
 				console.log("PIC ID :: "+thistr.attr("picid"));
 				$.ajax({
-					url:thisdomain+"site_pics/getbyid",
+					url:"/site_pics/getbyid",
 					data:{id:thistr.attr("picid")},
 					type:"post",
 					dataType:"json"
@@ -466,7 +465,7 @@ $(document).ready(function(){
 	$("#hapusPicSite").click(function(){
 		console.log($(".piclists.selected").attr("picid"));
 		$.ajax({
-			url:thisdomain+"site_pics/remove/",
+			url:"/site_pics/remove/",
 			data:{id:$(".sitepiclists.selected").attr("picid")},
 			type:"post"
 		}).done(function(data){

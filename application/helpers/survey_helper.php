@@ -98,4 +98,11 @@ function get_device_combo_data(){
 	$obj = new Device();
 	return $obj->get_combo_data();
 }
-
+function get_other_sites($id){
+	$obj = new Survey_site();
+	return $obj->get_other_sites($id);
+}
+function Surveypackagepopulate(){
+	$obj = new Surveypackage();
+	return $obj->populate();
+}

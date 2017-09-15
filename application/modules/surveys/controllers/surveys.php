@@ -41,19 +41,31 @@ class Surveys extends CI_Controller {
 		$this->session->set_userdata($sessdata);
 		$this->common->check_login();
 		$common = new Common();
-		$myuser = $this->ion_auth->user()->row();
-		$myuser->id;
+		$user = new User();
 		$id = $this->uri->segment(3);
 		$survey = new Survey($id);
+		$surveyobj = $survey->get();
 		$keyvalpaired = false;
+		$obj = $survey->get_survey_site_by_id();
 		//$obj = Survey_site::get_obj_by_id($id);
-		$this->data['obj'] = $survey->get_survey_site_by_id();
+		$this->data['obj'] = $obj;
 //		$pics = new Pic();
 //		$pics->where("client_id",$obj->client_id)->get();
 		$pics = $survey->get_pics();
 		$sitepics = $survey->get_site_pics();
 //		$sitepics = new Site_pic();
 //		$sitepics->where("client_id",$obj->client_id)->get();
+		//print_r(get_branch_combo_data());
+		$this->data["id"] = $id;
+		$this->data["clientid"] = $surveyobj->client_id;
+		$this->data["clientsiteid"] = $surveyobj->clientsiteid;
+		$this->data["clientname"] = $surveyobj->name;
+		$this->data["common"] = $common;
+		$this->data["surveyrequestid"] = $surveyobj->survey_request_id;
+		$this->data["address"] = $surveyobj->address;
+		$this->data["surveyobj"] = $surveyobj;
+		$this->data["surveysiteid"] = $id;
+		$this->data["areabranches"] = $survey->get_branches();
 		$this->data['pics'] = $pics;
 		$this->data['sitepics'] = $sitepics;
 		$this->data['positions'] = get_position_combodata();//Position::get_combo_data();
@@ -77,22 +89,26 @@ class Surveys extends CI_Controller {
 		$this->data['clients'] = get_client_combo_data();
 		$this->data['direction'] = array('0' => 'Pelanggan baru', '1' => 'Site baru', '2' => 'Relokasi');
 		$this->data['devices'] = get_device_combo_data();
-		$this->data['sites'] = Survey_site::get_other_sites($id);
+		$this->data['sites'] = get_other_sites($id);
 		$this->data['sender'] = 'survey_edit';
-		$this->data['surveypackages'] = Surveypackage::populate();
+		$this->data['surveypackages'] = Surveypackagepopulate();
 		$this->data['userbranches'] = getuserbranches();
 		$this->data['salesselected'] = getsalesselectedbysurveysiteid($id);
+		$applog = new App_log();
+		$this->data["lastvisit"] = $applog->get_lastvisit($this->session->userdata['username']);
+		$common = new Common();
 		switch ($this->session->userdata["role"]) {
 			case "TS":
 				$this->load->view('TS/surveys/edit', $this->data);
 				break;
 			case "Sales":
-				if($this->common->IsDecessor($obj->client_site->client->sale_id,$myuser->id)||($obj->client_site->client->sale_id===$myuser->id)){
+				if($user->IsDecessor($survey->get_sale_id(),$user->get_current_id())||($survey->get_sale_id()===$user->get_current_id())){
 						$this->load->view('Sales/surveys/edit', $this->data);
 				}else{
-					echo "MYUSERID ".$obj->client_site->client->user_id."<br />";
-					echo "MYUSERID ".$myuser->id."<br />";
-					echo "Anda harus memiliki privilege untuk dapat mengedit / melihat halaman ini ..";
+					//echo "MYUSERID ".$survey->get_sale_id()."<br />";
+					//echo "MYUSERID ".$user->get_current_id()."<br />";
+					//echo "Anda harus memiliki privilege untuk dapat mengedit / melihat halaman ini ..";
+					$this->load->view("v2/commons/privilegewarn",$this->data);
 				}
 				break;
 			case "CRO":
@@ -118,6 +134,8 @@ class Surveys extends CI_Controller {
 	function index() {
 		$this->common->check_login();
 		$this->data["common"] = new Common();
+		$applog = new App_log();
+		$this->data["lastvisit"] = $applog->get_lastvisit($this->session->userdata['username']);
 		$arr = array();
 		$users = getsubordinates($this->ionuser->id,$arr);
 		$this->data['menuFeed'] = 'survey';
@@ -224,16 +242,12 @@ class Surveys extends CI_Controller {
 	function update() {
 		$this->common->check_login();
 		$params = $this->input->post();
-		$obj = Survey_request::get_obj_by_id($params['id']);
-		$message = "<strong>Permintaan Survey</strong><br />";
-		$message.= '<br />Pelanggan : <strong>' . $obj->client->name . '</strong>';
-		$message.= '<br />Sales : <strong>' . $obj->username . '</strong>';
-		$message.= '<br />Alamat : <strong>' . $obj->address . '</strong>';
-		$message.= '<br />PIC : <strong>' . $obj->pic_name . '</strong>';
-		$message.= '<br />Telepon : <strong>' . $obj->phone_area . '-' . $obj->phone . '</strong>';
-		$obj = new Survey_request();
-		$obj->where("id", $params["id"])->update($params);
-		echo $obj->check_last_query();
+//		$obj = Survey_request::get_obj_by_id($params['id']);
+//		$obj = new Survey_request();
+		$obj = new Survey($params["id"]);
+		echo $obj->update($params);
+//		$obj->where("id", $params["id"])->update($params);
+//		echo $obj->check_last_query();
 	}
 	function feedData() {
 		$survey_site = new Survey_site();

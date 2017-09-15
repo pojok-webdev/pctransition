@@ -72,10 +72,13 @@ class Survey_site extends CI_Model{
 		return $que->result();
 	}
 	function get_other_sites($id){
-		$objs = new Survey_site();
-		$objs->where_related('survey_request/survey_site','id !=',$id)->get();
+		$sql = "select b.* from survey_sites a ";
+		$sql.= "left outer join survey_sites b on b.survey_request_id=a.survey_request_id ";
+		$sql.= "where a.id=".$id." ";
+		$ci = & get_instance();
+		$que = $ci->db->query($sql);
 		$out = array();
-		foreach($objs as $obj){
+		foreach($que->result() as $obj){
 			$out[$obj->id] = $obj->address;
 		}
 		return $out;

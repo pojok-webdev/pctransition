@@ -140,7 +140,9 @@
 		'Survey_requests/survey_request',
 		'Survey_resumes/survey_resume',
 		'Survey_materials/survey_material',
+		*/
 		'Surveypackages/surveypackage',
+		/*
 		'Surveypackagedetails/surveypackagedetail',
 		'Survey_bas/survey_ba',
 		*/
