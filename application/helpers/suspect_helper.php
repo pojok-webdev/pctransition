@@ -12,6 +12,10 @@
 		$result = $query->result();
 		return $result;
 	}
+	function get_business_field_combo_data(){
+		$business_field = new Business_field();
+		return $business_field->get_combo_data();
+	}
 	function getsuspectbyclientid($id){
 		$sql = "select ";
 		$sql.= "* from suspects ";

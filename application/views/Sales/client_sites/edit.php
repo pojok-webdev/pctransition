@@ -146,17 +146,14 @@
                             <div class="span3">Nama PIC:</div>
                             <div class="span9"><input type="text" placeholder="PIC..." value="<?php echo $obj->pic_name;?>" name='pic_name' id='pic_name' class="inp_client" /></div>
                         </div>
-
                         <div class="row-form clearfix">
                             <div class="span3">Jabatan PIC:</div>
                             <div class="span9"><input type="text" placeholder="Jabatan PIC..." value="<?php echo $obj->pic_position;?>" name='pic_position' id='pic_position' class="inp_client" /></div>
                         </div>
-
                         <div class="row-form clearfix">
                             <div class="span3">Email PIC:</div>
                             <div class="span9"><input type="text" placeholder="Email PIC..." value="<?php echo $obj->pic_email;?>" name='pic_email' id='pic_email' class="inp_client" /></div>
                         </div>
-
                         <div class="row-form clearfix">
                             <div class="span3">Phone:</div>
                             <div class="span3">
@@ -166,7 +163,6 @@
 								<input type="text" value="<?php echo $obj->pic_phone;?> " name="pic_phone" id="pic_phone" class="inp_client"  />
 							</div>
                         </div>
-
                         <div class="row-form clearfix">
                             <div class="span3">Account Manager:</div>
                             <div class="span9">

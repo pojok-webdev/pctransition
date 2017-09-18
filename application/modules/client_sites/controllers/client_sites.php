@@ -117,7 +117,8 @@ class Client_sites extends CI_Controller{
 		$this->data["business"]=getbusiness();
 		$this->data['branches'] = get_branch_combo_data();
 		$this->data['branch_handling'] = get_branches_handling($this->uri->segment(3));
-		
+		$applog = new App_log();
+		$this->data["lastvisit"] = $applog->get_lastvisit($this->session->userdata['username']);		
 		switch($this->session->userdata["role"]){
 			case 'Administrator':
 				$this->load->view('adm/client_sites/edit',$this->data);
@@ -175,7 +176,8 @@ class Client_sites extends CI_Controller{
 			$this->data['clientname'] = 'Semua';
 		}
 		$this->data['objs']=$objs;
-		switch($this->session->userdata["role"]){
+		$applog = new App_log();
+		$this->data["lastvisit"] = $applog->get_lastvisit($this->session->userdata['username']);		switch($this->session->userdata["role"]){
 			case 'Administrator':
 				$this->load->view('adm/client_sites',$this->data);
 				break;

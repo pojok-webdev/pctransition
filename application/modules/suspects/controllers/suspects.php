@@ -6,7 +6,7 @@ class Suspects extends CI_Controller {
 		parent::__construct();
 		if ($this->ion_auth->logged_in()) {
 			$this->ionuser = $this->ion_auth->user()->row();
-			$this->data['user'] = User::get_user_by_id($this->ionuser->id);
+			//$this->data['user'] = User::get_user_by_id($this->ionuser->id);
 			$this->load->helper('user');
 			$this->load->helper('suspect');
 			$this->load->helper('prospect');
@@ -39,6 +39,7 @@ class Suspects extends CI_Controller {
 	}
 	function add_suspect() {
 		$this->check_login();
+		$user = new User($this->ionuser->id);
 		if ($this->uri->total_segments() == 3) {
 			$objs = Client::get_obj_by_id($this->uri->segment(3));
 			$branch = $objs->branch_id;
@@ -46,18 +47,21 @@ class Suspects extends CI_Controller {
 			$client_id = $this->uri->segment(3);
 		} else {
 			$objs = new Client();//Client::populate();
-			$branch = User::get_branchs_by_id($this->ionuser->id);
+			$branch = $user->get_branches_by_id($this->ionuser->id);
 			$status = 'new';
 			$client_id = "";
 		}
+		$applog = new App_log();
 		$data = array(
-			'branches' => Branch::get_user_branches($this->ionuser->id),
+			'branches' => $user->get_user_branches(),
 			'branch' => $branch,
+			'branch_id' => $user->get_default_branch(),
 			'client_id' => $client_id,
 			'status' => $status,
-			'businesstypes' => Business_field::get_combo_data(),
+			'businesstypes' => get_business_field_combo_data(),
 			'objs' => $objs,
-			'menuFeed' => 'suspect'
+			'menuFeed' => 'suspect',
+			'lastvisit' => $applog->get_lastvisit($this->session->userdata['username']),
 		);
 		$this->load->view('Sales/suspects/add', $data);
 	}
@@ -176,6 +180,8 @@ class Suspects extends CI_Controller {
 		$users = getsubordinates($this->ionuser->id,$arr);
 		$this->data['objs'] = getsuspects();
 		$this->data['menuFeed'] = 'suspect';
+		$applog = new App_log();
+		$this->data["lastvisit"] = $applog->get_lastvisit($this->session->userdata['username']);
 		$this->load->view('Sales/suspects/suspects', $this->data);
 	}
 	function pic_add_x() {

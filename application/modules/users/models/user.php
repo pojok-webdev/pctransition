@@ -215,6 +215,14 @@ class User extends CI_Model{
 		}
 		return $out;
 	}
+	function get_default_branch(){
+		$sql = "select defbranch from users a ";
+		$sql.= "left outer join branches_users b on b.user_id=a.id ";
+		$sql.= "where a.id=".$this->id." ";
+		$ci = & get_instance();
+		$que = $ci->db->query($sql);
+		return $que->result()[0]->defbranch;
+	}
 	function get_name_by_id($id){
 		$sql = "select username from users ";
 		$sql.= "where id=".$id." order by username asc";
@@ -229,13 +237,34 @@ class User extends CI_Model{
 		$res = $que->result();
 		return $res[0]->id;
 	}
-	function get_branches_by_id($id){
+	function get_branch_by_id($id){
 		$sql = "select b.branch_id from users a ";
 		$sql.= "left outer join branches_users b on b.user_id=a.id ";
-		$sql.= "where a.id=".$id." ";
+		$sql.= "where a.id=".$this->id." ";
 		$que = $this->ci->db->query($sql);
 		$res = $que->result();
 		return $res[0]->branch_id;
+	}
+	function get_branches_by_id($id){
+		$sql = "select b.branch_id from users a ";
+		$sql.= "left outer join branches_users b on b.user_id=a.id ";
+		$sql.= "where a.id=".$this->id." ";
+		$que = $this->ci->db->query($sql);
+		$res = $que->result();
+		return $res;
+	}
+	function get_user_branches(){
+		$sql = "select c.id,c.name from users a ";
+		$sql.= "left outer join branches_users b on b.user_id=a.id ";
+		$sql.= "left outer join branches c on c.id=b.branch_id ";
+		$sql.= "where a.id='".$this->id."'";
+		$ci = & get_instance();
+		$que = $ci->db->query($sql);
+		$out = array();
+		foreach($que->result() as $res){
+			$out[$res->id] = $res->name;
+		}
+		return $out;
 	}
 	function get_email_by_id($user_id){
 		$sql = "select email from users ";

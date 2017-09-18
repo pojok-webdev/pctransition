@@ -36,7 +36,7 @@
 									<?php 
 									//echo form_dropdown('branch_id', $branches, $branch, 'id="branch_id" class="inp_suspect" type="selectid"'); 
 									?>
-									<input type="hidden" id="branch_id" value="<?php echo $branch;?>" class="inp_suspect" name="branch_id">
+									<input type="hidden" id="branch_id" value="<?php echo $branch_id;?>" class="inp_suspect" name="branch_id">
 								<!--
 								</div>
 							</div>-->

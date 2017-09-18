@@ -33,7 +33,8 @@ class Branch extends CI_Model{
 		$sql.= "left outer join branches_users b on b.user_id=a.id ";
 		$sql.= "left outer join branches c on c.id=b.branch_id ";
 		$sql.= "where a.id='".$id."'";
-		$que = $this->ci->db->query($sql);
+		$ci = & get_instance();
+		$que = $ci->db->query($sql);
 		$out = array();
 		foreach($que->result() as $res){
 			$out[$res->id] = $out->name;

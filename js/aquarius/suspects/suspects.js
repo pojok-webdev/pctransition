@@ -11,20 +11,20 @@ $(document).ready(function () {
         bAutoWidth: true
     });
     $("#btnaddsuspect").click(function () {
-        window.location.href = thisdomain + "suspects/add_suspect";
+        window.location.href = "/suspects/add_suspect";
     });
     $("#tSuspect").on("click", "tbody tr .btneditsuspect", function () {
         myid = $(this).stairUp({level: 4}).attr('myid');
         console.log(myid);
-        window.location.href = thisdomain + 'suspects/edit/' + myid;
+        window.location.href = '/suspects/edit/' + myid;
     });
     $('#tSuspect').on("click", " tbody tr .btnmovetoprospect", function () {
         mytr = $(this).stairUp({level: 4});
         myid = mytr.attr('myid');
-        $.post(thisdomain + 'clients/update', {id: myid, status: "1",prospectdate:padicurdate()}).fail(function () {
+        $.post('/clients/update', {id: myid, status: "1",prospectdate:padicurdate()}).fail(function () {
             alert('Tidak dapat menyimpan data, silakan hubungi Developer');
         }).done(function () {
-            $.post(thisdomain+'suspects/updatebyclientid',{client_id:myid,status:"1"})
+            $.post('/suspects/updatebyclientid',{client_id:myid,status:"1"})
             .fail(function(){
                 console.log("update suspects failed");
             })
@@ -53,7 +53,7 @@ $(document).ready(function () {
         var myid = $(this).stairUp({level:1}).attr("myid");
         console.log("myid",$(this).stairUp({level:1}).attr("myid"));
         $.ajax({
-            url:thisdomain+"suspects/getDescription/"+myid,
+            url:"/suspects/getDescription/"+myid,
             type:"get",
             dataType:"json"
         })

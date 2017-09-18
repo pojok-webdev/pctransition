@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php $this->load->view('adm/head'); ?>
-	<script type="text/javascript" src="<?php echo base_url(); ?>js/aquarius/suspects/suspects.js"></script>
+	<script type="text/javascript" src="/js/aquarius/suspects/suspects.js"></script>
 	<body>
 		<div id="dModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-header">
@@ -73,7 +73,7 @@
 								<tbody>
 									<?php foreach ($objs as $obj) { ?>
 										<?php
-										if(!Suspects::isComplete($obj->client_id)){
+										if(!$this->isComplete($obj->client_id)){
 											echo "<tr style='color:red' myid='".$obj->client_id."'>";
 											$desc = " (belum lengkap)";
 										}else{

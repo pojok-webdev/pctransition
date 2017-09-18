@@ -381,6 +381,8 @@ class Clients extends CI_Controller{
 		$this->data['sales'] = $user->get_combo_data_by_group('3');
 		$this->data['branches'] = getbranchescombodata();
 		$this->data['menuFeed'] = 'client';
+		$applog = new App_log();
+		$this->data["lastvisit"] = $applog->get_lastvisit($this->session->userdata['username']);
 		switch($this->session->userdata["role"]){
 			case 'Administrator':
 				$this->data['objs'] = adm_populate();

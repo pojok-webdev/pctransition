@@ -198,7 +198,7 @@ class Client_site extends CI_Model{
 		return $que->result();
 	}
 	function get_clientservices(){
-		$sql = "select a.id,a.name from clientservices a ";
+		$sql = "select a.id,a.name,product from clientservices a ";
 		$sql.= "where a.client_site_id=".$this->id. " ";
 		$que = $this->ci->db->query($sql);
 		return $que->result();		
